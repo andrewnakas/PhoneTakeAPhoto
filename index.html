@@ -4,38 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | webglPhoneTakeAPhoto</title>
-    <script>
-      function updateCanvasSize() {
-        var canvas = document.querySelector("#unity-canvas");
-
-        // Check if the device is a mobile device
-        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-          var orientation = window.orientation || window.screen.orientation.angle;
-
-          // Portrait orientation
-          if (orientation === 0 || orientation === 180) {
-            canvas.width = 600;
-            canvas.height = 800;
-          }
-          // Landscape orientation
-          else if (orientation === 90 || orientation === -90) {
-            canvas.width = 800;
-            canvas.height = 600;
-          }
-        } else {
-          // For desktops, use landscape orientation dimensions
-          canvas.width = 800;
-          canvas.height = 600;
-        }
-      }
-    </script>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;" onload="updateCanvasSize()" onresize="updateCanvasSize()">
-    <canvas id="unity-canvas" tabindex="-1" style="background: #231F20"></canvas>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=800 height=600 tabindex="-1" style="width: 800px; height: 600px; background: #231F20"></canvas>
     <script src="Build/ok.loader.js"></script>
     <script>
-      // Rest of your existing code
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
@@ -49,9 +24,6 @@
         document.body.style.textAlign = "left";
       }
 
-      // Add a listener for orientation changes and update the canvas size accordingly
-      window.addEventListener("orientationchange", updateCanvasSize);
-
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/ok.data",
         frameworkUrl: "Build/ok.framework.js",
@@ -60,6 +32,8 @@
         companyName: "DefaultCompany",
         productName: "webglPhoneTakeAPhoto",
         productVersion: "1.0",
+        matchWebGLToCanvasSize: false, // Add this line to disable automatic size synchronization
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       });
     </script>
   </body>
