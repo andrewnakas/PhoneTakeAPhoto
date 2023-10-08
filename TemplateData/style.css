@@ -1,0 +1,28 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  #unity-container {
+    position: relative; /* Should not conflict with Flexbox */
+    width: 800px;
+    height: 600px;
+  }
+  
+  #unity-canvas {
+    width: 100%; /* Use percentages for better scaling */
+    height: 100%;
+    background: #231F20;
+  }
+  
+  #unity-loading-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }

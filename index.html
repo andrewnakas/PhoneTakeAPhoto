@@ -4,55 +4,110 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | webglPhoneTakeAPhoto</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
     <style>
-      .button-container {
-        text-align: center;
-        margin-top: 20px;
+      /* Flexbox Centering */
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
       }
-      .app-button {
-        margin: 10px;
+
+      #unity-container {
+        width: 800px;
+        height: 600px;
       }
     </style>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=800 height=600 tabindex="-1" style="width: 800px; height: 600px; background: #231F20"></canvas>
-    
-    <!-- New content: Text and Image Buttons -->
-    <div class="button-container">
-      <p>Get the full version on the app stores</p>
-      <a href="https://testflight.apple.com/join/W152uT7z" class="app-button" target="_blank">
-        <img src="ios_button.png" alt="iOS TestFlight">
-      </a>
-      <a href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto" class="app-button" target="_blank">
-        <img src="android_button.png" alt="Google Play">
-      </a>
+  <body>
+    <div id="unity-container">
+      <canvas id="unity-canvas" width="800" height="600" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <!-- Unity logo div removed -->
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
     </div>
-    
-    <script src="Build/ok1.loader.js"></script>
-    <script>
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
 
-        var canvas = document.querySelector("#unity-canvas");
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        canvas.style.position = "fixed";
-        document.body.style.textAlign = "left";
+    <!-- Added Content -->
+    <div id="app-promo" style="text-align: center; margin-top: 20px;">
+      <p>Get the full version on the app stores</p>
+      <div>
+        <a href="https://testflight.apple.com/join/W152uT7z" target="_blank">
+          <img src="ios_button.png" alt="iOS App" style="width: 150px; height: 50px; margin-right: 10px;">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto" target="_blank">
+          <img src="android_button.png" alt="Android App" style="width: 150px; height: 50px;">
+        </a>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("ServiceWorker.js");
+        }
+      });
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
       }
 
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/ok1.data",
-        frameworkUrl: "Build/ok1.framework.js",
-        codeUrl: "Build/ok1.wasm",
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/ok1.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/ok1.data",
+        frameworkUrl: buildUrl + "/ok1.framework.js",
+        codeUrl: buildUrl + "/ok1.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "webglPhoneTakeAPhoto",
         productVersion: "1.0",
-        matchWebGLToCanvasSize: false,
-      });
+        showBanner: unityShowBanner,
+        matchWebGLToCanvasSize: false
+      };
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
     </script>
   </body>
 </html>
