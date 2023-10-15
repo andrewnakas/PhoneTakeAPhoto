@@ -9,41 +9,43 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
     <style>
-       body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
 
-body {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    grid-template-rows: auto 1fr auto;
-}
+        body {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            grid-template-rows: auto 1fr auto;
+        }
 
-#unity-container {
-    max-width: 100vw;
-    max-height: 100vh;
-    justify-self: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
+        #unity-container {
+            position: relative;
+            max-width: 100vw;
+            max-height: 90vh;
+            justify-self: center;
+            width: 100%;
+            height: 90%;
+        }
 
-canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
 
-/* New or modified CSS */
-#app-promo {
-    position: absolute;  /* This is new */
-    bottom: 10px;  /* This positions the text 10px above the bottom edge of the viewport */
-    width: 100%;  /* Ensure the promo text spans the full width of the viewport */
-    text-align: center;
-}
+        #app-promo {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
     </style>
 </head>
 
