@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /Build/
-Disallow: /StreamingAssets/
-Disallow: /TemplateData/
 
 Sitemap: https://phonetakeaphoto.com/sitemap.xml

@@ -1,7 +1,6 @@
-// Pages and site assets: network-first so updates show up immediately.
-// Heavy Unity demo files (Build/, StreamingAssets/): cache-first so the offline demo loads fast on repeat visits.
-const CACHE = "ptap-v2";
-const HEAVY = /\/(Build|StreamingAssets)\//;
+// Network-first: visitors always get the latest site; cached copies are only an offline fallback.
+// Activating this version also deletes caches left by the old Unity WebGL build (hundreds of MB).
+const CACHE = "ptap-v3";
 
 self.addEventListener("install", () => self.skipWaiting());
 
@@ -15,25 +14,11 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
   const req = e.request;
-  if (req.method !== "GET") return;
-  const url = new URL(req.url);
-  if (url.origin !== location.origin) return;
-
-  if (HEAVY.test(url.pathname)) {
-    e.respondWith((async () => {
-      const hit = await caches.match(req);
-      if (hit) return hit;
-      const res = await fetch(req);
-      if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
-      return res;
-    })());
-    return;
-  }
-
+  if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
   e.respondWith((async () => {
     try {
       const res = await fetch(req);
-      if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
+      if (res.ok && res.type === "basic") (await caches.open(CACHE)).put(req, res.clone());
       return res;
     } catch (err) {
       const hit = await caches.match(req);

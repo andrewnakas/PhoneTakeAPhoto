@@ -25,7 +25,7 @@ How this website drives downloads, plus a channel-by-channel plan with copy you 
 ### Turn on analytics (5 minutes, do this first)
 1. Create a free [Plausible](https://plausible.io) or Google Analytics 4 property for `phonetakeaphoto.com`.
 2. Paste its snippet into `scripts/build.mjs` where the `<!-- Analytics -->` comment is, then run `node scripts/build.mjs`.
-3. Events already fire automatically: `store_click` (store, placement, page), `demo_start`, `demo_capture` (voice/clap/tap), `demo_download`, `demo_share`, `share_click`, `unity_demo_start`.
+3. Events already fire automatically: `store_click` (store, placement, page), `demo_start`, `demo_capture` (voice/clap/tap), `demo_download`, `demo_share`, `share_click`.
 
 ### Turn on App Store campaign tracking
 In **App Store Connect → Analytics → Sources → Campaigns**, generate a link to get your **provider token (`pt`)**. Put it in `appleProviderToken` in `assets/site.js`. You'll then see installs per `ct` campaign (e.g. `direct-home-hero`, `reddit-launch-get`). Google Play attributes the `referrer` utm values automatically in **Play Console → Store performance → Traffic sources**.
@@ -117,7 +117,7 @@ Sample r/SideProject post:
 
 **Product Hunt** — launch on a Tuesday–Thursday. Tagline: *"Say 'take a photo' — a hands-free camera that works offline."* Gallery: og.png + 4 screenshots + the 20s demo video. First comment: the founder story above. Link: `/get/?utm_source=producthunt`.
 
-**Hacker News "Show HN"** — lead with the technical angle: *"Show HN: Offline voice-triggered camera (on-device speech recognition in Unity/WebGL)"* linking to `/full-demo.html`.
+**Hacker News "Show HN"** — lead with the privacy/tech angle: *"Show HN: A camera app you trigger by saying 'take a photo' (offline, on-device speech)"* linking to the homepage demo.
 
 **Facebook groups** — solo female travel groups, family photography, homeschool co-ops (field trip photos), wedding DIY groups.
 

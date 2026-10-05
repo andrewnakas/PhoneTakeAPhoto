@@ -90,7 +90,6 @@ const footer = `
           <li><a href="/uses/voice-activated-camera/">Voice-activated camera</a></li>
           <li><a href="/guides/take-photo-with-voice/">Take a photo with your voice</a></li>
           <li><a href="/#try">Browser demo</a></li>
-          <li><a href="/full-demo.html">Offline AI demo</a></li>
         </ul>
       </div>
       <div>
@@ -141,7 +140,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" cont
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${abs(ogImage)}">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
-<link rel="icon" href="/TemplateData/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -800,71 +799,8 @@ write("/404.html", layout({
 </div></section>`
 }));
 
-// ---------- Unity "offline AI" demo ----------
-write("/full-demo.html", layout({
-  path: "/full-demo.html",
-  title: "Offline Voice Camera Demo (Unity WebGL) — Phone Take A Photo",
-  description: "Run the Phone Take A Photo offline speech recognition engine in your browser. A larger download that shows the same on-device AI the app uses.",
-  extraHead: `<style>
-  .unity-wrap { width: min(1000px, 100% - 32px); margin: 24px auto; }
-  #unity-container { position: relative; width: 100%; aspect-ratio: 16 / 10; background: #231F20; border-radius: 18px; overflow: hidden; }
-  #unity-canvas { width: 100%; height: 100%; display: block; background: #231F20; }
-  #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; text-align: center; color: #fff; }
-  #unity-progress-bar-empty { width: 220px; height: 8px; background: rgba(255,255,255,.2); border-radius: 8px; overflow: hidden; margin-top: 10px; }
-  #unity-progress-bar-full { width: 0; height: 100%; background: var(--accent); }
-  #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: #fff; color: #14110f; padding: 10px; display: none; border-radius: 10px; }
-  #unity-start { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: #fff; padding: 24px; }
-  #unity-start p { color: #d9cfc4; }
-</style>`,
-  body: `
-<div class="unity-wrap">
-  <span class="eyebrow">Offline AI demo</span>
-  <h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">The real on-device speech engine, in your browser.</h1>
-  <p class="muted">This demo runs the same style of offline speech recognition the app uses, compiled to WebAssembly. It's a large download (~30&nbsp;MB plus a language model) and works best on a desktop browser. For a quick try on mobile, use the <a href="/#try">instant demo</a>.</p>
-  <div id="unity-container">
-    <canvas id="unity-canvas" tabindex="-1"></canvas>
-    <div id="unity-loading-bar"><div>Loading speech engine…</div><div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div></div>
-    <div id="unity-warning"></div>
-    <div id="unity-start"><div><h3>Load the offline demo</h3><p>About 30&nbsp;MB. Allow microphone access when asked.</p><button class="btn btn-primary" id="unity-go" type="button">Load demo</button></div></div>
-  </div>
-  <div class="inline-cta"><div><strong>Get the full app</strong><br><span class="muted">Full-resolution photos, video, night mode and more.</span></div>${badges("unity-demo")}</div>
-</div>`,
-  scripts: `<script>
-(function () {
-  var canvas = document.querySelector("#unity-canvas"), loadingBar = document.querySelector("#unity-loading-bar"),
-      progressBarFull = document.querySelector("#unity-progress-bar-full"), warningBanner = document.querySelector("#unity-warning"),
-      start = document.querySelector("#unity-start");
-  function unityShowBanner(msg, type) {
-    function upd() { warningBanner.style.display = warningBanner.children.length ? "block" : "none"; }
-    var div = document.createElement("div"); div.innerHTML = msg; warningBanner.appendChild(div);
-    if (type == "error") div.style = "background: red; padding: 10px;";
-    else { if (type == "warning") div.style = "background: yellow; padding: 10px;"; setTimeout(function () { warningBanner.removeChild(div); upd(); }, 5000); }
-    upd();
-  }
-  var buildUrl = "/Build";
-  var config = {
-    dataUrl: buildUrl + "/ok1.data", frameworkUrl: buildUrl + "/ok1.framework.js", codeUrl: buildUrl + "/ok1.wasm",
-    streamingAssetsUrl: "/StreamingAssets", companyName: "DefaultCompany", productName: "webglPhoneTakeAPhoto",
-    productVersion: "1.0", showBanner: unityShowBanner, matchWebGLToCanvasSize: true
-  };
-  document.querySelector("#unity-go").addEventListener("click", function () {
-    start.hidden = true; loadingBar.style.display = "block";
-    if (window.PTAP) window.PTAP.track("unity_demo_start", {});
-    var script = document.createElement("script");
-    script.src = buildUrl + "/ok1.loader.js";
-    script.onload = function () {
-      createUnityInstance(canvas, config, function (p) { progressBarFull.style.width = 100 * p + "%"; })
-        .then(function () { loadingBar.style.display = "none"; })
-        .catch(function (m) { unityShowBanner(String(m), "error"); });
-    };
-    document.body.appendChild(script);
-  });
-})();
-</script>`
-}));
-
 // ---------- Sitemap ----------
-const urls = ["/", "/uses/", ...ARTICLES.map((a) => a.path), "/get/", "/press/", "/full-demo.html"];
+const urls = ["/", "/uses/", ...ARTICLES.map((a) => a.path), "/get/", "/press/"];
 writeFileSync(join(ROOT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${TODAY}</lastmod><priority>${u === "/" ? "1.0" : "0.7"}</priority></url>`).join("\n")}

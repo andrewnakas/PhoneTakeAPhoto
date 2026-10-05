@@ -1,7 +1,7 @@
 // Renders social/share images and PNG icons from HTML using Playwright's Chromium.
 // Usage: node scripts/render-images.mjs  (needs `playwright` available, e.g. npm i -g playwright)
 import { chromium } from "playwright";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -36,10 +36,19 @@ async function shot(html, w, h, out) {
   await page.setContent(html, { waitUntil: "networkidle" });
   await page.screenshot({ path: join(ROOT, out), omitBackground: false });
 }
-const iconHtml = (svg, size) => `<html><body style="margin:0;width:${size}px;height:${size}px">${svg.replace("<svg ", `<svg width="${size}" height="${size}" `)}</body></html>`;
+const iconHtml = (svg, size) => `<html><body style="margin:0;background:transparent;width:${size}px;height:${size}px">${svg.replace("<svg ", `<svg width="${size}" height="${size}" `)}</body></html>`;
 await shot(og, 1200, 630, "assets/og.png");
 await shot(iconHtml(iconSquare, 512), 512, 512, "assets/icon-512.png");
 await shot(iconHtml(iconSquare, 192), 192, 192, "assets/icon-192.png");
 await shot(iconHtml(iconSquare, 180), 180, 180, "assets/apple-touch-icon.png");
+// favicon.ico: a single 32x32 PNG wrapped in an ICO container.
+await page.setViewportSize({ width: 32, height: 32 });
+await page.setContent(iconHtml(icon, 32));
+const png = await page.screenshot({ omitBackground: true });
+const hdr = Buffer.alloc(22);
+hdr.writeUInt16LE(0, 0); hdr.writeUInt16LE(1, 2); hdr.writeUInt16LE(1, 4);
+hdr.writeUInt8(32, 6); hdr.writeUInt8(32, 7); hdr.writeUInt16LE(1, 10); hdr.writeUInt16LE(32, 12);
+hdr.writeUInt32LE(png.length, 14); hdr.writeUInt32LE(22, 18);
+writeFileSync(join(ROOT, "favicon.ico"), Buffer.concat([hdr, png]));
 await browser.close();
 console.log("Rendered images");

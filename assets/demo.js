@@ -36,6 +36,21 @@
     modeBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === state.mode)); });
   }
 
+  function ensureAudioCtx() {
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!state.audioCtx) { try { state.audioCtx = new Ctx(); } catch (e) { return null; } }
+    if (state.audioCtx.state === "suspended") state.audioCtx.resume();
+    return state.audioCtx;
+  }
+
+  function fallBackToClap(why) {
+    stopVoice();
+    state.mode = "clap"; setModeButtons();
+    startClap().then(function () { say(why, "Clap to take a photo", false); })
+      .catch(function () { state.mode = "tap"; setModeButtons(); setStatus("Tap mode", false); say(why, "Tap the shutter", false); });
+  }
+
   // ---------- Camera ----------
   function startCamera() {
     if (state.stream) state.stream.getTracks().forEach(function (t) { t.stop(); });
@@ -57,7 +72,9 @@
     rec.continuous = true;
     rec.interimResults = true;
     rec.maxAlternatives = 3;
-    rec.onstart = function () { setStatus("Listening", true); };
+    var started = false;
+    rec.onstart = function () { started = true; setStatus("Listening", true); };
+    setTimeout(function () { if (state.rec === rec && !started) fallBackToClap("Voice didn't start"); }, 4000);
     rec.onresult = function (e) {
       for (var i = e.resultIndex; i < e.results.length; i++) {
         var res = e.results[i], heard = res[0].transcript.trim();
@@ -71,17 +88,27 @@
         if (res.isFinal && state.firedFor === i) state.firedFor = -1 - i; // allow next utterance
       }
     };
+    var restarts = [];
     rec.onerror = function (e) {
       if (e.error === "not-allowed" || e.error === "service-not-allowed") {
-        say("Mic blocked", "Allow the microphone, or switch to Clap mode", false);
+        stopVoice();
+        say("Mic blocked", "Allow the microphone, or tap the shutter", false);
         setStatus("Mic off", false);
         state.mode = "tap"; setModeButtons();
+      } else if (e.error === "network" || e.error === "language-not-supported") {
+        // Some browsers (e.g. Brave, offline Chrome) expose speech recognition but can't run it.
+        fallBackToClap("Voice unavailable here");
       }
     };
     rec.onend = function () {
       state.firedFor = -1;
+      if (state.rec !== rec) return;
       if (state.running && state.mode === "voice" && !document.hidden) {
-        try { rec.start(); } catch (err) { /* already started */ }
+        var now = Date.now();
+        restarts = restarts.filter(function (t) { return now - t < 4000; });
+        restarts.push(now);
+        if (restarts.length > 6) { fallBackToClap("Voice keeps stopping"); return; }
+        setTimeout(function () { if (state.rec === rec) { try { rec.start(); } catch (err) {} } }, 200);
       } else setStatus("Mic off", false);
     };
     state.rec = rec;
@@ -97,9 +124,8 @@
     return navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
       .then(function (s) {
         state.audioStream = s;
-        var Ctx = window.AudioContext || window.webkitAudioContext;
-        state.audioCtx = state.audioCtx || new Ctx();
-        state.audioCtx.resume();
+        if (state.mode !== "clap") { s.getTracks().forEach(function (t) { t.stop(); }); state.audioStream = null; return; }
+        if (!ensureAudioCtx()) throw new Error("no audio");
         var src = state.audioCtx.createMediaStreamSource(s);
         var an = state.audioCtx.createAnalyser();
         an.fftSize = 1024;
@@ -139,11 +165,10 @@
   }
 
   // ---------- Capture ----------
-  var audioCtxForShutter;
   function shutterSound() {
     try {
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      var ctx = state.audioCtx || audioCtxForShutter || (audioCtxForShutter = new Ctx());
+      var ctx = ensureAudioCtx();
+      if (!ctx) return;
       var len = ctx.sampleRate * 0.12, b = ctx.createBuffer(1, len, ctx.sampleRate), d = b.getChannelData(0);
       for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
       var s = ctx.createBufferSource(), g = ctx.createGain();
@@ -224,12 +249,14 @@
       return;
     }
     startBtn.disabled = true; startBtn.textContent = "Starting…";
+    ensureAudioCtx();
+    state.running = true;
+    startListening(); // inside the tap, so mobile browsers allow the mic
     startCamera().then(function () {
-      state.running = true;
       startLayer.hidden = true;
       track("demo_start", { mode: state.mode });
-      startListening();
     }).catch(function (err) {
+      state.running = false; stopVoice(); stopClap(); setStatus("Mic off", false);
       startBtn.disabled = false; startBtn.textContent = "Try again";
       startMsg.textContent = err && err.name === "NotAllowedError"
         ? "Camera permission was blocked. Allow it in your browser's site settings, then try again."
@@ -246,6 +273,7 @@
   modeBtns.forEach(function (b) {
     b.addEventListener("click", function () {
       if (b.disabled) return;
+      ensureAudioCtx();
       state.mode = b.getAttribute("data-mode");
       setModeButtons();
       if (state.running) startListening();
