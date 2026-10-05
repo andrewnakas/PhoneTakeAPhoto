@@ -1,15 +1,20 @@
 {
-    "name": "webglPhoneTakeAPhoto",
-    "short_name": "webglPhoneTakeAPhoto",
-    "start_url": "index.html",
-    "display": "fullscreen",
-    "background_color": "#231F20",
-    "theme_color": "#000",
-    "description": "Take a photo with your voice",
-    "icons": [{
-      "src": "TemplateData/icons/unity-logo-dark.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }]
-  }
+  "name": "Phone Take A Photo",
+  "short_name": "Take A Photo",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fbf7f0",
+  "theme_color": "#ff4d2e",
+  "description": "Say “take a photo” and your phone takes the picture. Hands-free, voice-activated camera.",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "related_applications": [
+    { "platform": "itunes", "url": "https://apps.apple.com/us/app/phone-take-a-photo/id6450124820", "id": "6450124820" },
+    { "platform": "play", "url": "https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto", "id": "com.nakas.phonetakeaphoto" }
+  ],
+  "prefer_related_applications": false
+}

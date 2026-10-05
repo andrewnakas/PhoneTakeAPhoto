@@ -1,33 +1,29 @@
-const cacheName = "DefaultCompany-webglPhoneTakeAPhoto-1.0";
-const contentToCache = [
-    "Build/ok1.loader.js",
-    "Build/ok1.framework.js",
-    "Build/ok1.data",
-    "Build/ok1.wasm",
-    "TemplateData/style.css"
+// Network-first: visitors always get the latest site; cached copies are only an offline fallback.
+// Activating this version also deletes caches left by the old Unity WebGL build (hundreds of MB).
+const CACHE = "ptap-v3";
 
-];
+self.addEventListener("install", () => self.skipWaiting());
 
-self.addEventListener('install', function (e) {
-    console.log('[Service Worker] Install');
-    
-    e.waitUntil((async function () {
-      const cache = await caches.open(cacheName);
-      console.log('[Service Worker] Caching all: app shell and content');
-      await cache.addAll(contentToCache);
-    })());
+self.addEventListener("activate", (e) => {
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+  })());
 });
 
-self.addEventListener('fetch', function (e) {
-    e.respondWith((async function () {
-      let response = await caches.match(e.request);
-      console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-      if (response) { return response; }
-
-      response = await fetch(e.request);
-      const cache = await caches.open(cacheName);
-      console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      return response;
-    })());
+self.addEventListener("fetch", (e) => {
+  const req = e.request;
+  if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
+  e.respondWith((async () => {
+    try {
+      const res = await fetch(req);
+      if (res.ok && res.type === "basic") (await caches.open(CACHE)).put(req, res.clone());
+      return res;
+    } catch (err) {
+      const hit = await caches.match(req);
+      if (hit) return hit;
+      throw err;
+    }
+  })());
 });
