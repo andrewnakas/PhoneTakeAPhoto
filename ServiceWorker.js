@@ -1,33 +1,44 @@
-const cacheName = "DefaultCompany-webglPhoneTakeAPhoto-1.0";
-const contentToCache = [
-    "Build/ok1.loader.js",
-    "Build/ok1.framework.js",
-    "Build/ok1.data",
-    "Build/ok1.wasm",
-    "TemplateData/style.css"
+// Pages and site assets: network-first so updates show up immediately.
+// Heavy Unity demo files (Build/, StreamingAssets/): cache-first so the offline demo loads fast on repeat visits.
+const CACHE = "ptap-v2";
+const HEAVY = /\/(Build|StreamingAssets)\//;
 
-];
+self.addEventListener("install", () => self.skipWaiting());
 
-self.addEventListener('install', function (e) {
-    console.log('[Service Worker] Install');
-    
-    e.waitUntil((async function () {
-      const cache = await caches.open(cacheName);
-      console.log('[Service Worker] Caching all: app shell and content');
-      await cache.addAll(contentToCache);
-    })());
+self.addEventListener("activate", (e) => {
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+  })());
 });
 
-self.addEventListener('fetch', function (e) {
-    e.respondWith((async function () {
-      let response = await caches.match(e.request);
-      console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-      if (response) { return response; }
+self.addEventListener("fetch", (e) => {
+  const req = e.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== location.origin) return;
 
-      response = await fetch(e.request);
-      const cache = await caches.open(cacheName);
-      console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
-      cache.put(e.request, response.clone());
-      return response;
+  if (HEAVY.test(url.pathname)) {
+    e.respondWith((async () => {
+      const hit = await caches.match(req);
+      if (hit) return hit;
+      const res = await fetch(req);
+      if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
+      return res;
     })());
+    return;
+  }
+
+  e.respondWith((async () => {
+    try {
+      const res = await fetch(req);
+      if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
+      return res;
+    } catch (err) {
+      const hit = await caches.match(req);
+      if (hit) return hit;
+      throw err;
+    }
+  })());
 });

@@ -1,135 +1,290 @@
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | webglPhoneTakeAPhoto</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="manifest" href="manifest.webmanifest">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phone Take A Photo — Voice-Activated Camera App | Hands-Free Selfies</title>
+<meta name="description" content="Say “take a photo” and your phone snaps the picture. A free hands-free camera for iPhone, iPad, Mac and Android with offline voice control, video, night mode and a clap shutter. Try it in your browser.">
+<link rel="canonical" href="https://phonetakeaphoto.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="apple-itunes-app" content="app-id=6450124820, app-argument=https://phonetakeaphoto.com/">
+<meta name="theme-color" content="#ff4d2e">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Phone Take A Photo">
+<meta property="og:title" content="Phone Take A Photo — Voice-Activated Camera App | Hands-Free Selfies">
+<meta property="og:description" content="Say “take a photo” and your phone snaps the picture. A free hands-free camera for iPhone, iPad, Mac and Android with offline voice control, video, night mode and a clap shutter. Try it in your browser.">
+<meta property="og:url" content="https://phonetakeaphoto.com/">
+<meta property="og:image" content="https://phonetakeaphoto.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Phone Take A Photo — say “take a photo” and your phone snaps the picture">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Phone Take A Photo — Voice-Activated Camera App | Hands-Free Selfies">
+<meta name="twitter:description" content="Say “take a photo” and your phone snaps the picture. A free hands-free camera for iPhone, iPad, Mac and Android with offline voice control, video, night mode and a clap shutter. Try it in your browser.">
+<meta name="twitter:image" content="https://phonetakeaphoto.com/assets/og.png">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/TemplateData/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
 
-        body {
-            display: grid;
-            justify-content: center;
-            align-items: center;
-            height: 75vh;
-            width: 75vw;
-            grid-template-rows: auto 1fr auto;
-        }
-
-        #unity-container {
-            max-width: 100vw;  /* Changed from 100vw */
-            max-height: 100vh; /* Changed from 100vh */
-            justify-self: center;
-            width: 100%;  /* Changed from 100% */
-            height:100%; /* Changed from 100% */
-            position: relative;
-        }
-
-        canvas {
-            width: 100% !important;  /* Changed from 100% */
-            height: 100% !important; /* Changed from 100% */
-        }
-
-        /* New or modified CSS */
-        #app-promo {
-          margin-top: 10px;
-            text-align: center;
-            width: 100%;
-        }
-    </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Phone Take A Photo","url":"https://phonetakeaphoto.com/"},{"@type":"Organization","name":"Phone Take A Photo","url":"https://phonetakeaphoto.com/","logo":"https://phonetakeaphoto.com/assets/icon-512.png","email":"PhoneTakeAPhoto@gmail.com","sameAs":["https://apps.apple.com/us/app/phone-take-a-photo/id6450124820","https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto"]},{"@type":"MobileApplication","name":"Phone Take A Photo","alternateName":"Phone Take a Photo – Speech powered camera","operatingSystem":"iOS 16.0+, iPadOS 16.0+, macOS 13.0+, visionOS 1.0+","applicationCategory":"PhotographyApplication","url":"https://apps.apple.com/us/app/phone-take-a-photo/id6450124820","image":"https://phonetakeaphoto.com/assets/icon-512.png","description":"Voice-activated, hands-free camera. Say “take a photo” to snap pictures or “start recording” for video. Offline on-device speech recognition.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Andrew Nakas"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"16","bestRating":"5"}},{"@type":"MobileApplication","name":"Phone Take A Photo","alternateName":"Phone Take a Photo – Speech powered camera","operatingSystem":"Android","applicationCategory":"PhotographyApplication","url":"https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto","image":"https://phonetakeaphoto.com/assets/icon-512.png","description":"Voice-activated, hands-free camera. Say “take a photo” to snap pictures or “start recording” for video. Offline on-device speech recognition.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Andrew Nakas"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does Phone Take A Photo work?","acceptedAnswer":{"@type":"Answer","text":"Open the app, prop your phone up, and say “take a photo.” The camera fires instantly. Say “start recording” and “stop recording” for video. No buttons, no timers, no Bluetooth remote."}},{"@type":"Question","name":"Does it need an internet connection?","acceptedAnswer":{"@type":"Answer","text":"No. Speech recognition runs on-device with an offline AI model, so it works on a hike, at the beach or in airplane mode — and your voice is never uploaded."}},{"@type":"Question","name":"Is it free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Phone Take A Photo is free to download. Optional in-app purchases unlock the full feature set and remove the watermark."}},{"@type":"Question","name":"Which devices are supported?","acceptedAnswer":{"@type":"Answer","text":"iPhone and iPad (iOS/iPadOS 16+), Apple silicon Macs (macOS 13+), Apple Vision Pro, and Android phones via Google Play."}},{"@type":"Question","name":"Can I use a Bluetooth or external microphone?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can pick which microphone the app listens to, including Bluetooth headsets and earbuds — handy when the phone is far away on a tripod."}},{"@type":"Question","name":"Can I trigger the camera without talking?","acceptedAnswer":{"@type":"Answer","text":"Yes. The sound-reactive shutter fires on a clap or a loud sound, which is great in places where you'd rather not speak."}},{"@type":"Question","name":"Is the browser demo the same as the app?","acceptedAnswer":{"@type":"Answer","text":"The demo on this page uses your browser's built-in speech engine to show the idea. The app uses its own offline speech model, takes full-resolution photos and video, and adds night mode, long exposures and manual controls. Need help? Email PhoneTakeAPhoto@gmail.com."}}]}]}</script>
+<!-- Analytics: paste your Plausible / GA4 snippet here (see GROWTH.md). Events are sent via window.PTAP.track. -->
 </head>
-
 <body>
-    <div id="unity-container">
-        <canvas id="unity-canvas" width="100%" height="100%" tabindex="-1"></canvas>
-        <div id="unity-loading-bar">
-            <div id="unity-progress-bar-empty">
-                <div id="unity-progress-bar-full"></div>
-            </div>
-        </div>
-        <div id="unity-warning"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/assets/icon.svg" alt="" width="34" height="34">Phone Take A Photo</a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-sm" href="/#try">Try it</a>
+      <a class="hide-sm" href="/uses/">Use cases</a>
+      <a class="hide-sm" href="/guides/take-photo-with-voice/">Guide</a>
+      <a class="btn btn-primary btn-sm" data-store="auto" data-placement="nav" href="/get/">Get the app</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">The voice-activated camera</span>
+      <h1>Say <span class="quote">“take a photo.”</span> Your phone does the rest.</h1>
+      <p class="lede">Phone Take A Photo is the hands-free camera for iPhone, iPad, Mac and Android. Prop your phone up, step into the shot, and just say it — no timer, no remote, no running back and forth.</p>
+      <div class="cta-row">
+        
+<div class="badges">
+  <a data-store="ios" data-placement="hero" href="https://apps.apple.com/app/apple-store/id6450124820?mt=8"><img src="/ios_button.png" alt="Download on the App Store" width="156" height="52"></a>
+  <a data-store="android" data-placement="hero" href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto"><img class="badge-play" src="/android_button.png" alt="Get it on Google Play" width="134" height="52"></a>
+</div>
+      </div>
+      <div class="proof">
+        <span><span class="stars" aria-hidden="true">★★★★★</span> 4.8 on the App Store</span>
+        <span>• Free download</span>
+        <span>• Works offline</span>
+      </div>
+      <p style="margin-top:22px"><a href="#try" class="btn btn-ghost">Try it in your browser ↓</a></p>
     </div>
-
-    <div id="app-promo">
-        <p>Get the full version on the app stores.</p>
-        <p>For app support or questions please email.</p>
-        <p>Contact: PhoneTakeAPhoto@gmail.com</p>
-
+    <div id="try">
+<div>
+  <div class="phone" id="demo">
+    <div class="screen">
+      <div class="notch"></div>
+      <video playsinline muted autoplay class="mirror" aria-label="Live camera preview"></video>
+      <div class="flash"></div>
+      <div class="top-hud">
+        <span class="pill"><span class="dot"></span><span>Mic off</span></span>
+        <div class="mode-toggle" role="group" aria-label="Trigger">
+          <button type="button" data-mode="voice" aria-pressed="true">Voice</button>
+          <button type="button" data-mode="clap" aria-pressed="false">Clap</button>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="bubble" aria-live="polite"><small>Say</small><span>“Take a photo”</span></div>
+        <div class="meter" aria-hidden="true"><i></i></div>
+        <div class="shutter-row">
+          <button class="thumb" type="button" aria-label="Open last photo"></button>
+          <button class="shutter" type="button" aria-label="Take photo"></button>
+          <button class="icon-btn flip" type="button" aria-label="Flip camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.9-4M4 4v4h4M4 13a8 8 0 0 0 14.9 4M20 20v-4h-4"/></svg></button>
+        </div>
+      </div>
+      <div class="demo-start">
         <div>
-            <a href="https://apps.apple.com/en/app/phone-take-a-photo/id6450124820" target="_blank">
-                <img src="ios_button.png" alt="iOS App" style="width: 150px; height: 50px; margin-right: 10px;">
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto" target="_blank">
-                <img src="android_button.png" alt="Android App" style="width: 150px; height: 50px;">
-            </a>
+          <h3>Try it right here</h3>
+          <p>Turn on your camera, step back, and say:</p>
+          <div class="say">“Take a photo”</div>
+          <button class="btn btn-primary demo-go" type="button">Start the camera</button>
+          <p class="demo-msg" style="margin-top:14px"></p>
         </div>
+      </div>
     </div>
+  </div>
+  <p class="demo-note">Photos stay on your device — nothing is uploaded. No speech support in your browser? Switch to <b>Clap</b>.</p>
+</div>
+<div class="modal" id="demo-modal" role="dialog" aria-modal="true" aria-label="Your photo">
+  <div class="sheet">
+    <img alt="The photo you just took">
+    <div class="row">
+      <a class="btn btn-primary dl" href="#">Download</a>
+      <button class="btn btn-ghost share-photo" type="button" hidden>Share</button>
+      <button class="btn btn-ghost close-modal" type="button">Keep shooting</button>
+    </div>
+    <div class="upsell">
+      <p><strong>That was the browser preview.</strong> The app shoots full-resolution photos and video, works offline, and adds night mode, long exposures and a clap shutter.</p>
+      
+<div class="badges">
+  <a data-store="ios" data-placement="demo-modal" href="https://apps.apple.com/app/apple-store/id6450124820?mt=8"><img src="/ios_button.png" alt="Download on the App Store" width="156" height="52"></a>
+  <a data-store="android" data-placement="demo-modal" href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto"><img class="badge-play" src="/android_button.png" alt="Get it on Google Play" width="134" height="52"></a>
+</div>
+    </div>
+  </div>
+</div></div>
+  </div>
+</section>
 
-    <script>
-        window.addEventListener("load", function () {
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("ServiceWorker.js");
-            }
-        });
+<section class="alt" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. Zero buttons.</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Prop it up</h3><p class="muted">Lean your phone on anything — a tripod, a shelf, a rock, a coffee mug.</p></li>
+      <li><h3>Get in the shot</h3><p class="muted">Walk back, pose, grab the whole crew. Take your time — there's no timer counting down.</p></li>
+      <li><h3>Say the words</h3><p class="muted"><span class="cmd">“Take a photo.”</span> Snap. Want video? <span class="cmd">“Start recording.”</span></p></li>
+    </ol>
+  </div>
+</section>
 
-        var container = document.querySelector("#unity-container");
-        var canvas = document.querySelector("#unity-canvas");
-        var loadingBar = document.querySelector("#unity-loading-bar");
-        var progressBarFull = document.querySelector("#unity-progress-bar-full");
-        var warningBanner = document.querySelector("#unity-warning");
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Features</span>
+      <h2>A real camera that listens.</h2>
+      <p>Built for the moments when you can't — or don't want to — touch your phone.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card"><div class="ico">🗣</div><h3>Voice photo &amp; video</h3><p>“Take a photo,” “start recording,” “stop recording.” That's the whole manual.</p></div>
+      <div class="card"><div class="ico">🔒</div><h3>Offline &amp; private</h3><p>On-device speech AI. Works with no signal, and your voice never leaves your phone.</p></div>
+      <div class="card"><div class="ico">👏</div><h3>Clap shutter</h3><p>Sound-reactive mode fires on a clap or a loud sound when you'd rather not talk.</p></div>
+      <div class="card"><div class="ico">🌙</div><h3>Night &amp; long exposure</h3><p>No finger on the screen means no shake — perfect for low light, stars and light trails.</p></div>
+      <div class="card"><div class="ico">🎛</div><h3>Manual controls</h3><p>Dial in the shot yourself, then trigger it from across the room.</p></div>
+      <div class="card"><div class="ico">🎧</div><h3>Bluetooth mics</h3><p>Choose your microphone. Talk into your earbuds while the phone is 30 feet away.</p></div>
+    </div>
+  </div>
+</section>
 
-        function unityShowBanner(msg, type) {
-            function updateBannerVisibility() {
-                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-            }
-            var div = document.createElement('div');
-            div.innerHTML = msg;
-            warningBanner.appendChild(div);
-            if (type == 'error') div.style = 'background: red; padding: 10px;';
-            else {
-                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-                setTimeout(function () {
-                    warningBanner.removeChild(div);
-                    updateBannerVisibility();
-                }, 5000);
-            }
-            updateBannerVisibility();
-        }
+<section class="alt" id="uses">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Made for</span>
+      <h2>Every shot you used to miss.</h2>
+    </div>
+    <div class="grid grid-3">
+      <a class="card" href="/uses/hands-free-selfies/"><h3>Hands-free selfies</h3><p>Full-body, both hands free, no arm in the frame.</p><span class="more">Learn more →</span></a>
+      <a class="card" href="/uses/group-photos/"><h3>Group photos</h3><p>Finally, the photographer is in the picture too.</p><span class="more">Learn more →</span></a>
+      <a class="card" href="/uses/hands-free-video/"><h3>Creators &amp; video</h3><p>Start and stop recording mid-recipe, mid-rep, mid-take.</p><span class="more">Learn more →</span></a>
+      <a class="card" href="/uses/night-long-exposure/"><h3>Night &amp; tripod shots</h3><p>Shake-free long exposures without a remote.</p><span class="more">Learn more →</span></a>
+      <a class="card" href="/uses/accessibility/"><h3>Accessibility</h3><p>A camera you can use without touching the screen.</p><span class="more">Learn more →</span></a>
+      <a class="card" href="/uses/voice-activated-camera/"><h3>Why voice?</h3><p>Voice vs. timers, remotes and smartwatches.</p><span class="more">Compare →</span></a>
+    </div>
+  </div>
+</section>
 
-        var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/ok1.loader.js";
-        var config = {
-            dataUrl: buildUrl + "/ok1.data",
-            frameworkUrl: buildUrl + "/ok1.framework.js",
-            codeUrl: buildUrl + "/ok1.wasm",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
-            productName: "webglPhoneTakeAPhoto",
-            productVersion: "1.0",
-            showBanner: unityShowBanner,
-            matchWebGLToCanvasSize: false
-        };
+<section id="commands">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Just say</span>
+      <h2>The entire instruction manual.</h2>
+    </div>
+    <div class="commands">
+      <span>“Take a photo”</span>
+      <span>“Start recording”</span>
+      <span>“Stop recording”</span>
+      <span>👏 (clap)</span>
+    </div>
+  </div>
+</section>
 
-        loadingBar.style.display = "block";
+<section class="alt" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Reviews</span>
+      <h2>Rated 4.8 out of 5 on the App Store.</h2>
+    </div>
+    <div class="grid grid-2">
+      <div class="card quote-card"><blockquote>“Great for taking high resolution hands-free photos.”</blockquote><cite>App Store review</cite></div>
+      <div class="card quote-card"><blockquote>Loved it? A quick review helps other people find a camera they can use without hands.</blockquote><cite><a data-store="auto" data-placement="review-ask" href="/get/">Leave a review →</a></cite></div>
+    </div>
+  </div>
+</section>
 
-        var script = document.createElement("script");
-        script.src = loaderUrl;
-        script.onload = () => {
-            createUnityInstance(canvas, config, (progress) => {
-                progressBarFull.style.width = 100 * progress + "%";
-            }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-            }).catch((message) => {
-                alert(message);
-            });
-        };
-        document.body.appendChild(script);
-    </script>
+<section id="faq">
+  <div class="narrow">
+    <div class="section-head"><span class="eyebrow">FAQ</span><h2>Questions, answered.</h2></div>
+    <div class="faq">
+  <details><summary>How does Phone Take A Photo work?</summary><p>Open the app, prop your phone up, and say “take a photo.” The camera fires instantly. Say “start recording” and “stop recording” for video. No buttons, no timers, no Bluetooth remote.</p></details>
+  <details><summary>Does it need an internet connection?</summary><p>No. Speech recognition runs on-device with an offline AI model, so it works on a hike, at the beach or in airplane mode — and your voice is never uploaded.</p></details>
+  <details><summary>Is it free?</summary><p>Yes, Phone Take A Photo is free to download. Optional in-app purchases unlock the full feature set and remove the watermark.</p></details>
+  <details><summary>Which devices are supported?</summary><p>iPhone and iPad (iOS/iPadOS 16+), Apple silicon Macs (macOS 13+), Apple Vision Pro, and Android phones via Google Play.</p></details>
+  <details><summary>Can I use a Bluetooth or external microphone?</summary><p>Yes. You can pick which microphone the app listens to, including Bluetooth headsets and earbuds — handy when the phone is far away on a tripod.</p></details>
+  <details><summary>Can I trigger the camera without talking?</summary><p>Yes. The sound-reactive shutter fires on a clap or a loud sound, which is great in places where you'd rather not speak.</p></details>
+  <details><summary>Is the browser demo the same as the app?</summary><p>The demo on this page uses your browser's built-in speech engine to show the idea. The app uses its own offline speech model, takes full-resolution photos and video, and adds night mode, long exposures and manual controls. Need help? Email <a href="mailto:PhoneTakeAPhoto@gmail.com">PhoneTakeAPhoto@gmail.com</a>.</p></details>
+</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Put your phone down. Say “take a photo.”</h2>
+        <p>Free to download for iPhone, iPad, Mac, Vision Pro and Android. Works offline — your voice never leaves your device.</p>
+        
+<div class="badges">
+  <a data-store="ios" data-placement="home-bottom" href="https://apps.apple.com/app/apple-store/id6450124820?mt=8"><img src="/ios_button.png" alt="Download on the App Store" width="156" height="52"></a>
+  <a data-store="android" data-placement="home-bottom" href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto"><img class="badge-play" src="/android_button.png" alt="Get it on Google Play" width="134" height="52"></a>
+</div>
+      </div>
+      <div class="qr" aria-hidden="true"><img src="/assets/qr-get.svg" alt="" width="126" height="126"><span>Scan to download</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="/"><img src="/assets/icon.svg" alt="" width="34" height="34">Phone Take A Photo</a>
+        <p class="muted" style="margin-top:12px">The hands-free, voice-activated camera. Just say “take a photo.”</p>
+        <button class="btn btn-ghost btn-sm" data-share="footer" type="button">Share with a friend</button>
+      </div>
+      <div>
+        <h4>Use cases</h4>
+        <ul>
+          <li><a href="/uses/hands-free-selfies/">Hands-free selfies</a></li>
+          <li><a href="/uses/group-photos/">Group photos</a></li>
+          <li><a href="/uses/hands-free-video/">Hands-free video</a></li>
+          <li><a href="/uses/night-long-exposure/">Night &amp; long exposure</a></li>
+          <li><a href="/uses/accessibility/">Accessibility</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/uses/voice-activated-camera/">Voice-activated camera</a></li>
+          <li><a href="/guides/take-photo-with-voice/">Take a photo with your voice</a></li>
+          <li><a href="/#try">Browser demo</a></li>
+          <li><a href="/full-demo.html">Offline AI demo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>App</h4>
+        <ul>
+          <li><a data-store="ios" data-placement="footer" href="https://apps.apple.com/app/apple-store/id6450124820?mt=8">App Store</a></li>
+          <li><a data-store="android" data-placement="footer" href="https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto">Google Play</a></li>
+          <li><a href="/press/">Press kit</a></li>
+          <li><a href="mailto:PhoneTakeAPhoto@gmail.com">Support: PhoneTakeAPhoto@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">© <span data-year>2026</span> Phone Take A Photo by Andrew Nakas. App Store is a service mark of Apple Inc. Google Play is a trademark of Google LLC.</p>
+  </div>
+</footer>
+<div class="sticky-cta" role="complementary" aria-label="Download the app">
+  <img src="/assets/icon.svg" alt="" width="40" height="40">
+  <div><strong>Phone Take A Photo</strong>Free · hands-free camera</div>
+  <a class="btn btn-primary btn-sm" data-store="auto" data-placement="sticky" href="/get/">Get</a>
+  <button class="close" type="button" aria-label="Dismiss">×</button>
+</div>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/demo.js" defer></script>
+<script>if("serviceWorker"in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/ServiceWorker.js")});</script>
 </body>
-
 </html>
