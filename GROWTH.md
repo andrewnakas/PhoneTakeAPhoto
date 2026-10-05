@@ -82,10 +82,20 @@ Target keywords → page:
 | start recording with voice, hands free video recording app | `/uses/hands-free-video/` |
 | long exposure without remote, night photo blur phone | `/uses/night-long-exposure/` |
 | camera app for limited mobility, accessible camera app | `/uses/accessibility/` |
+| voice camera app iphone, hands free camera app iphone | `/iphone/` |
+| voice camera app android, take picture with voice android | `/android/` |
+| take photo on mac without clicking, photo booth alternative | `/mac/` |
+| how to take pictures of yourself, solo travel photos of yourself | `/guides/take-pictures-of-yourself/` |
+| take photo without touching phone, hands free photo | `/guides/take-photo-without-touching-phone/` |
+| self timer alternative, bluetooth camera remote alternative | `/guides/self-timer-alternatives/` |
+| clap to take picture app, sound activated camera | `/guides/clap-to-take-photo/` |
+| how to take a full body picture of yourself, outfit photos alone | `/guides/full-body-photo-of-yourself/` |
+| diy family christmas card photo, take own family photo | `/guides/diy-family-christmas-photo/` (seasonal: promote Oct–Dec) |
+| professional headshot at home with phone | `/guides/diy-headshot-at-home/` |
 
 **Next steps:**
 1. Add the site to **Google Search Console** and **Bing Webmaster Tools**, submit `https://phonetakeaphoto.com/sitemap.xml`.
-2. Publish one new guide every 2 weeks (copy an entry in `ARTICLES` in `scripts/build.mjs`). Ideas: "Best tripod spots for solo travelers", "How to take Christmas card photos yourself", "OOTD photos without a mirror", "Wedding photos on a budget", "Bluetooth shutter remote alternatives", "How to photograph stars with a phone".
+2. Publish one new guide every 2 weeks (add an entry in `scripts/content-seo.mjs`, then run `node scripts/build.mjs`). Ideas: "How to photograph stars with a phone", "DIY engagement photos", "Pregnancy/maternity photos at home", "How to film yourself cooking", "Back-to-school family photo", "Best cheap phone tripods". When content changes, bump `UPDATED` in `scripts/build.mjs`.
 3. Backlinks: get listed on accessibility resource pages (see §5), "best selfie apps" roundups and AlternativeTo (as an alternative to "camera remote" apps).
 
 ---

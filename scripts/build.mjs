@@ -4,6 +4,7 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { seoPages } from "./content-seo.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://phonetakeaphoto.com";
@@ -11,7 +12,9 @@ const IOS_URL = "https://apps.apple.com/app/apple-store/id6450124820?mt=8";
 const IOS_CANON = "https://apps.apple.com/us/app/phone-take-a-photo/id6450124820";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto";
 const EMAIL = "PhoneTakeAPhoto@gmail.com";
-const TODAY = new Date().toISOString().slice(0, 10);
+// Bump when page content changes meaningfully (shown on pages and in the sitemap).
+const UPDATED = "2026-10-05";
+const PUBLISHED = "2026-10-05";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const abs = (path) => SITE + path;
@@ -45,7 +48,7 @@ const header = `
     <nav class="nav" aria-label="Main">
       <a class="hide-sm" href="/#try">Try it</a>
       <a class="hide-sm" href="/uses/">Use cases</a>
-      <a class="hide-sm" href="/guides/take-photo-with-voice/">Guide</a>
+      <a class="hide-sm" href="/guides/">Guides</a>
       <a class="btn btn-primary btn-sm" data-store="auto" data-placement="nav" href="/get/">Get the app</a>
     </nav>
   </div>
@@ -82,19 +85,25 @@ const footer = `
           <li><a href="/uses/hands-free-video/">Hands-free video</a></li>
           <li><a href="/uses/night-long-exposure/">Night &amp; long exposure</a></li>
           <li><a href="/uses/accessibility/">Accessibility</a></li>
+          <li><a href="/uses/voice-activated-camera/">Voice-activated camera</a></li>
         </ul>
       </div>
       <div>
-        <h4>Learn</h4>
+        <h4>Guides</h4>
         <ul>
-          <li><a href="/uses/voice-activated-camera/">Voice-activated camera</a></li>
           <li><a href="/guides/take-photo-with-voice/">Take a photo with your voice</a></li>
-          <li><a href="/#try">Browser demo</a></li>
+          <li><a href="/guides/take-pictures-of-yourself/">Take pictures of yourself</a></li>
+          <li><a href="/guides/take-photo-without-touching-phone/">Photos without touching your phone</a></li>
+          <li><a href="/guides/self-timer-alternatives/">Self-timer alternatives</a></li>
+          <li><a href="/guides/">All guides</a></li>
         </ul>
       </div>
       <div>
         <h4>App</h4>
         <ul>
+          <li><a href="/iphone/">iPhone &amp; iPad</a></li>
+          <li><a href="/android/">Android</a></li>
+          <li><a href="/mac/">Mac</a></li>
           <li><a data-store="ios" data-placement="footer" href="${IOS_URL}">App Store</a></li>
           <li><a data-store="android" data-placement="footer" href="${PLAY_URL}">Google Play</a></li>
           <li><a href="/press/">Press kit</a></li>
@@ -247,8 +256,8 @@ const demoMarkup = `
 
 const home = layout({
   path: "/",
-  title: "Phone Take A Photo — Voice-Activated Camera App | Hands-Free Selfies",
-  description: "Say “take a photo” and your phone snaps the picture. A free hands-free camera for iPhone, iPad, Mac and Android with offline voice control, video, night mode and a clap shutter. Try it in your browser.",
+  title: "Phone Take A Photo: Voice-Activated Hands-Free Camera App",
+  description: "Say “take a photo” and your phone snaps the picture. Free hands-free camera for iPhone, iPad, Mac & Android with offline voice control. Try it in your browser.",
   schema: [
     { "@type": "WebSite", name: "Phone Take A Photo", url: SITE + "/" },
     { "@type": "Organization", name: "Phone Take A Photo", url: SITE + "/", logo: abs("/assets/icon-512.png"), email: EMAIL, sameAs: [IOS_CANON, PLAY_URL] },
@@ -273,6 +282,7 @@ const home = layout({
         <span>• Free download</span>
         <span>• Works offline</span>
       </div>
+      <p class="proof" style="margin-top:10px">Available for <a href="/iphone/">iPhone</a>, <a href="/iphone/">iPad</a>, <a href="/mac/">Mac</a> &amp; <a href="/android/">Android</a></p>
       <p style="margin-top:22px"><a href="#try" class="btn btn-ghost">Try it in your browser ↓</a></p>
     </div>
     <div id="try">${demoMarkup}</div>
@@ -343,6 +353,25 @@ const home = layout({
   </div>
 </section>
 
+<section id="guides">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Guides</span>
+      <h2>Be in your own photos.</h2>
+      <p>Practical how-tos for shooting with nobody behind the camera.</p>
+    </div>
+    <div class="grid grid-3">
+      <a class="card" href="/guides/take-pictures-of-yourself/"><h3>How to take pictures of yourself</h3><p>10 pro tips for solo travelers and self-portraits.</p><span class="more">Read →</span></a>
+      <a class="card" href="/guides/take-photo-without-touching-phone/"><h3>6 ways to shoot without touching your phone</h3><p>Voice, clap, timer, remotes and watches compared.</p><span class="more">Read →</span></a>
+      <a class="card" href="/guides/diy-family-christmas-photo/"><h3>DIY family Christmas card photo</h3><p>Everyone in the shot, no photographer needed.</p><span class="more">Read →</span></a>
+      <a class="card" href="/guides/full-body-photo-of-yourself/"><h3>Full-body outfit photos</h3><p>Camera height, distance and poses that flatter.</p><span class="more">Read →</span></a>
+      <a class="card" href="/guides/diy-headshot-at-home/"><h3>Professional headshot at home</h3><p>LinkedIn-ready with window light and your phone.</p><span class="more">Read →</span></a>
+      <a class="card" href="/guides/self-timer-alternatives/"><h3>Self-timer alternatives</h3><p>Better than a Bluetooth remote, and free.</p><span class="more">Read →</span></a>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-ghost" href="/guides/">All guides →</a></p>
+  </div>
+</section>
+
 <section class="alt" id="reviews">
   <div class="wrap">
     <div class="section-head">
@@ -372,8 +401,8 @@ const ARTICLES = [
   {
     path: "/uses/voice-activated-camera/",
     crumb: "Voice-activated camera",
-    title: "Voice-Activated Camera App for iPhone & Android | Phone Take A Photo",
-    description: "Take pictures and video with your voice. See how a voice-activated camera compares with self-timers, Bluetooth remotes and smartwatch shutters — and why it works offline.",
+    title: "Voice-Activated Camera App: Take Pictures by Voice",
+    description: "Take pictures and video by voice. How a voice-activated camera compares with self-timers, Bluetooth remotes and smartwatch shutters, and why offline matters.",
     eyebrow: "Voice-activated camera",
     h1: "The voice-activated camera: say it, shoot it.",
     lede: "A voice-activated camera fires the shutter when it hears a command. No timer to race, no remote to lose, no watch to pair. Here's how it works and when it beats the alternatives.",
@@ -418,7 +447,7 @@ const ARTICLES = [
   {
     path: "/uses/hands-free-selfies/",
     crumb: "Hands-free selfies",
-    title: "How to Take a Hands-Free Selfie (No Timer, No Remote) | Phone Take A Photo",
+    title: "How to Take a Hands-Free Selfie (No Timer, No Remote)",
     description: "Take full-body, hands-free selfies by saying “take a photo.” No arm in the frame, no 10-second sprint, no selfie stick. Tips for setup, lighting and posing.",
     eyebrow: "Hands-free selfies",
     h1: "Hands-free selfies. Both hands. Whole body.",
@@ -462,8 +491,8 @@ const ARTICLES = [
   {
     path: "/uses/group-photos/",
     crumb: "Group photos",
-    title: "Group Photos With Everyone In Them — No Timer Needed | Phone Take A Photo",
-    description: "Stop leaving the photographer out. Prop your phone up, get everyone in place, and say “take a photo.” Take as many shots as you need without running back to the phone.",
+    title: "Group Photos With Everyone In Them, No Timer Needed",
+    description: "Stop leaving the photographer out. Prop your phone up, get everyone in place and say “take a photo.” Retake as often as you like with no running back.",
     eyebrow: "Group photos",
     h1: "Finally, the photographer is in the group photo.",
     lede: "No asking strangers, no 10-second sprint, no “wait, my eyes were closed.” Get everyone in place, then say “take a photo” — as many times as it takes.",
@@ -496,7 +525,7 @@ const ARTICLES = [
   {
     path: "/uses/hands-free-video/",
     crumb: "Hands-free video",
-    title: "Start Recording Video With Your Voice — For Creators | Phone Take A Photo",
+    title: "Start Recording Video With Your Voice: Hands-Free Video",
     description: "Say “start recording” and “stop recording” to film recipes, workouts, tutorials and TikToks hands-free. No messy fingers on the screen, no dead air to trim.",
     eyebrow: "Hands-free video",
     h1: "“Start recording.” Your hands stay on the work.",
@@ -533,7 +562,7 @@ const ARTICLES = [
   {
     path: "/uses/night-long-exposure/",
     crumb: "Night & long exposure",
-    title: "Shake-Free Night & Long Exposure Photos Without a Remote | Phone Take A Photo",
+    title: "Shake-Free Night & Long Exposure Photos Without a Remote",
     description: "Tapping the shutter shakes your phone and blurs long exposures. Trigger night shots, star photos and light trails by voice for sharp, touch-free results.",
     eyebrow: "Night & long exposure",
     h1: "Sharper night shots: don't touch the phone.",
@@ -568,7 +597,7 @@ const ARTICLES = [
     path: "/uses/accessibility/",
     crumb: "Accessibility",
     title: "An Accessible, Touch-Free Camera App | Phone Take A Photo",
-    description: "A camera you control with your voice or a clap. Helpful for people with limited hand mobility, tremors, or who use a mounted phone. Works offline on iPhone, iPad, Mac and Android.",
+    description: "A camera you control by voice or clap. Helpful for limited hand mobility, tremors or a mounted phone. Works offline on iPhone, iPad, Mac and Android.",
     eyebrow: "Accessibility",
     h1: "A camera you can use without touching it.",
     lede: "Small on-screen buttons can be hard to hit precisely. Phone Take A Photo lets you take photos and videos by voice — or by a clap — from a phone that's mounted where it works for you.",
@@ -600,7 +629,7 @@ const ARTICLES = [
   {
     path: "/guides/take-photo-with-voice/",
     crumb: "Take a photo with your voice",
-    title: "How to Take a Picture With Your Voice on iPhone & Android (2026 Guide)",
+    title: "How to Take a Picture With Your Voice (iPhone & Android)",
     description: "Every way to take a photo hands-free on iPhone and Android: Siri, Google Assistant, Voice Control, timers, remotes — and the one-step way: say “take a photo.”",
     eyebrow: "Guide",
     h1: "How to take a picture with your voice on iPhone and Android",
@@ -647,20 +676,29 @@ const ARTICLES = [
   }
 ];
 
+for (const a of ARTICLES) a.section = a.section || (a.path.startsWith("/guides/") ? "guides" : "uses");
+ARTICLES.push(...seoPages({ badges, EMAIL }));
+const SECTION_HUB = { uses: ["Use cases", "/uses/"], guides: ["Guides", "/guides/"] };
+const fmtDate = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
 for (const a of ARTICLES) {
-  const isGuide = a.path.startsWith("/guides/");
-  const trail = [["Home", "/"], isGuide ? ["Guides", a.path] : ["Use cases", "/uses/"], [a.crumb, a.path]];
-  if (isGuide) trail.splice(1, 1);
-  const related = ARTICLES.filter((x) => x !== a).slice(0, 3);
+  const isGuide = a.section === "guides";
+  const trail = [["Home", "/"], ...(SECTION_HUB[a.section] ? [SECTION_HUB[a.section]] : []), [a.crumb, a.path]];
+  const byPath = (p) => ARTICLES.find((x) => x.path === p);
+  const related = (a.related || []).map(byPath).filter(Boolean);
+  for (const x of ARTICLES) if (related.length < 3 && x !== a && x.section === a.section && !related.includes(x)) related.push(x);
   const html = layout({
     path: a.path,
     title: a.title,
     description: a.description,
     schema: [
       breadcrumbs(trail),
-      { "@type": isGuide ? "HowTo" : "Article", name: a.h1, headline: a.h1, description: a.description, url: abs(a.path),
-        dateModified: TODAY, author: { "@type": "Organization", name: "Phone Take A Photo" },
-        ...(isGuide ? { step: [{ "@type": "HowToStep", text: "Install Phone Take A Photo from the App Store or Google Play." }, { "@type": "HowToStep", text: "Prop your phone up and frame the shot." }, { "@type": "HowToStep", text: "Say “take a photo.”" }] } : {}) },
+      a.section === "platform"
+        ? { ...appSchema(a.crumb === "Android" ? "Android" : a.crumb === "Mac" ? "macOS 13.0+ (Apple silicon)" : "iOS 16.0+, iPadOS 16.0+", a.crumb === "Android" ? PLAY_URL : IOS_CANON) }
+        : { "@type": "Article", headline: a.h1, description: a.description, url: abs(a.path), mainEntityOfPage: abs(a.path),
+            image: abs("/assets/og.png"), datePublished: PUBLISHED, dateModified: UPDATED, inLanguage: "en",
+            author: { "@type": "Organization", name: "Phone Take A Photo", url: SITE + "/" },
+            publisher: { "@type": "Organization", name: "Phone Take A Photo", logo: { "@type": "ImageObject", url: abs("/assets/icon-512.png") } } },
       ...(a.faqs ? [faqSchema(a.faqs)] : [])
     ],
     body: `
@@ -670,6 +708,7 @@ for (const a of ARTICLES) {
     <span class="eyebrow">${a.eyebrow}</span>
     <h1>${a.h1}</h1>
     <p class="lede" style="font-size:1.2rem">${a.lede}</p>
+    ${a.section === "platform" ? "" : `<p class="muted" style="font-size:.88rem">Updated <time datetime="${UPDATED}">${fmtDate(UPDATED)}</time> · ${Math.max(2, Math.round(a.content.replace(/<[^>]+>/g, " ").split(/\s+/).length / 220))} min read</p>`}
     ${badges(a.path.split("/").filter(Boolean).pop() + "-top")}
   </div>
   ${a.content}
@@ -688,7 +727,7 @@ ${ctaBand(a.path.split("/").filter(Boolean).pop() + "-bottom")}`
 // ---------- Use case hub ----------
 write("/uses/", layout({
   path: "/uses/",
-  title: "Use Cases — Hands-Free Photos & Video by Voice | Phone Take A Photo",
+  title: "Hands-Free Photo & Video Use Cases | Phone Take A Photo",
   description: "Hands-free selfies, group photos, creator video, night shots and accessible photography — everything you can do with a voice-activated camera.",
   schema: [breadcrumbs([["Home", "/"], ["Use cases", "/uses/"]])],
   body: `
@@ -701,17 +740,42 @@ write("/uses/", layout({
 </section>
 <section style="padding-top:0">
   <div class="wrap"><div class="grid grid-3">
-    ${ARTICLES.map((r) => `<a class="card" href="${r.path}"><h3>${r.crumb}</h3><p>${esc(r.description)}</p><span class="more">Read →</span></a>`).join("")}
+    ${ARTICLES.filter((r) => r.section === "uses").map((r) => `<a class="card" href="${r.path}"><h3>${r.crumb}</h3><p>${esc(r.description)}</p><span class="more">Read →</span></a>`).join("")}
   </div></div>
 </section>
 ${ctaBand("uses-hub")}`
+}));
+
+// ---------- Guides hub ----------
+write("/guides/", layout({
+  path: "/guides/",
+  title: "Hands-Free Photography Guides | Phone Take A Photo",
+  description: "Practical guides to taking photos of yourself, group shots, headshots and holiday cards without a photographer, plus every way to take a photo hands-free.",
+  schema: [breadcrumbs([["Home", "/"], ["Guides", "/guides/"]]),
+    { "@type": "CollectionPage", name: "Hands-free photography guides", url: abs("/guides/"),
+      hasPart: ARTICLES.filter((r) => r.section === "guides").map((r) => ({ "@type": "Article", headline: r.h1, url: abs(r.path) })) }],
+  body: `
+<section class="article-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Guides</nav>
+    <span class="eyebrow">Guides</span>
+    <h1>Be in your own photos.</h1>
+    <p class="lede" style="font-size:1.2rem;max-width:40em">How-tos for taking great photos with no one behind the camera.</p>
+  </div>
+</section>
+<section style="padding-top:0">
+  <div class="wrap"><div class="grid grid-3">
+    ${ARTICLES.filter((r) => r.section === "guides").map((r) => `<a class="card" href="${r.path}"><h3>${r.crumb}</h3><p>${esc(r.description)}</p><span class="more">Read →</span></a>`).join("")}
+  </div></div>
+</section>
+${ctaBand("guides-hub")}`
 }));
 
 // ---------- Smart download link (/get) ----------
 // Share this one URL everywhere (bios, QR codes, print, videos). Phones go straight to their store.
 write("/get/", layout({
   path: "/get/",
-  title: "Download Phone Take A Photo — Free for iPhone, iPad, Mac & Android",
+  title: "Download Phone Take A Photo: Free Voice Camera App",
   description: "Download Phone Take A Photo, the free voice-activated camera. Say “take a photo” and your phone takes the picture.",
   extraHead: `<script>
 (function(){var u=navigator.userAgent,q=location.search,ios=/iPad|iPhone|iPod/.test(u)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1),and=/Android/i.test(u);
@@ -800,10 +864,10 @@ write("/404.html", layout({
 }));
 
 // ---------- Sitemap ----------
-const urls = ["/", "/uses/", ...ARTICLES.map((a) => a.path), "/get/", "/press/"];
+const urls = ["/", "/uses/", "/guides/", ...ARTICLES.map((a) => a.path), "/get/", "/press/"];
 writeFileSync(join(ROOT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${TODAY}</lastmod><priority>${u === "/" ? "1.0" : "0.7"}</priority></url>`).join("\n")}
+${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${UPDATED}</lastmod><priority>${u === "/" ? "1.0" : "0.7"}</priority></url>`).join("\n")}
 </urlset>
 `);
 
