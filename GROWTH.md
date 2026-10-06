@@ -92,10 +92,15 @@ Target keywords → page:
 | how to take a full body picture of yourself, outfit photos alone | `/guides/full-body-photo-of-yourself/` |
 | diy family christmas card photo, take own family photo | `/guides/diy-family-christmas-photo/` (seasonal: promote Oct–Dec) |
 | professional headshot at home with phone | `/guides/diy-headshot-at-home/` |
+| how to photograph stars with a phone, night sky photos | `/guides/photograph-stars-with-your-phone/` |
+| diy engagement photos, take your own engagement photos | `/guides/diy-engagement-photos/` |
+| maternity photos at home, pregnancy photoshoot diy | `/guides/maternity-photos-at-home/` |
+| how to film yourself cooking, hands free recipe video | `/guides/film-yourself-cooking/` |
+| best cheap phone tripod, phone tripod alternatives | `/guides/best-cheap-phone-tripods/` |
 
 **Next steps:**
-1. Add the site to **Google Search Console** and **Bing Webmaster Tools**, submit `https://phonetakeaphoto.com/sitemap.xml`.
-2. Publish one new guide every 2 weeks (add an entry in `scripts/content-seo.mjs`, then run `node scripts/build.mjs`). Ideas: "How to photograph stars with a phone", "DIY engagement photos", "Pregnancy/maternity photos at home", "How to film yourself cooking", "Back-to-school family photo", "Best cheap phone tripods". When content changes, bump `UPDATED` in `scripts/build.mjs`.
+1. Add the site to **Google Search Console** and **Bing Webmaster Tools**, submit `https://phonetakeaphoto.com/sitemap.xml` (now 27 URLs — re-submit after this update).
+2. Publish one new guide every 2 weeks (add an entry in `scripts/content-seo.mjs`, then run `node scripts/build.mjs`). Next ideas: "Back-to-school family photo", "Pet photography with your phone (dogs & cats)", "Self-tape audition recording by yourself", "Couples photos without a photographer", "How to film a solo workout for form check". When content changes, bump `UPDATED` in `scripts/build.mjs`.
 3. Backlinks: get listed on accessibility resource pages (see §5), "best selfie apps" roundups and AlternativeTo (as an alternative to "camera remote" apps).
 
 ---
