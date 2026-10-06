@@ -160,7 +160,15 @@ ${noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" cont
 <link rel="stylesheet" href="/assets/site.css">
 ${extraHead}
 ${ld}
-<!-- Analytics: paste your Plausible / GA4 snippet here (see GROWTH.md). Events are sent via window.PTAP.track. -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8P0VVXC0HQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8P0VVXC0HQ');
+</script>
 </head>
 <body>
 ${header}

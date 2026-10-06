@@ -22,10 +22,8 @@ How this website drives downloads, plus a channel-by-channel plan with copy you 
 | **Social cards** | `assets/og.png` | Good-looking previews on iMessage, WhatsApp, X, Slack, Reddit, LinkedIn. |
 | **Press kit** | `/press/` | Makes it easy for bloggers/journalists to write about you. |
 
-### Turn on analytics (5 minutes, do this first)
-1. Create a free [Plausible](https://plausible.io) or Google Analytics 4 property for `phonetakeaphoto.com`.
-2. Paste its snippet into `scripts/build.mjs` where the `<!-- Analytics -->` comment is, then run `node scripts/build.mjs`.
-3. Events already fire automatically: `store_click` (store, placement, page), `demo_start`, `demo_capture` (voice/clap/tap), `demo_download`, `demo_share`, `share_click`.
+### Analytics (live)
+GA4 property `G-8P0VVXC0HQ` is wired into every page via the gtag snippet in `scripts/build.mjs`. Events fire automatically through `window.PTAP.track`: `store_click` (store, placement, page), `demo_start`, `demo_capture` (voice/clap/tap), `demo_download`, `demo_share`, `share_click`. View them in GA4 under **Reports → Engagement → Events** (Realtime for same-day testing). To change the measurement ID, update both occurrences in the `<!-- Google tag (gtag.js) -->` block in `scripts/build.mjs`, then run `node scripts/build.mjs`.
 
 ### Turn on App Store campaign tracking
 In **App Store Connect → Analytics → Sources → Campaigns**, generate a link to get your **provider token (`pt`)**. Put it in `appleProviderToken` in `assets/site.js`. You'll then see installs per `ct` campaign (e.g. `direct-home-hero`, `reddit-launch-get`). Google Play attributes the `referrer` utm values automatically in **Play Console → Store performance → Traffic sources**.
