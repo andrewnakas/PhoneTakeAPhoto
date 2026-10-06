@@ -13,7 +13,7 @@ const IOS_CANON = "https://apps.apple.com/us/app/phone-take-a-photo/id6450124820
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.nakas.phonetakeaphoto";
 const EMAIL = "PhoneTakeAPhoto@gmail.com";
 // Bump when page content changes meaningfully (shown on pages and in the sitemap).
-const UPDATED = "2026-10-05";
+const UPDATED = "2026-10-06";
 const PUBLISHED = "2026-10-05";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -486,7 +486,8 @@ const ARTICLES = [
       ["How do I take a selfie without holding my phone?", "Prop the phone up, open Phone Take A Photo, step back and say “take a photo.” The camera fires instantly without you touching it."],
       ["Can I take a full-body selfie without a selfie stick?", "Yes. Lean the phone on any stable surface, walk back until you're fully in frame, and trigger the shot with your voice."],
       ["Does it work with the rear camera?", "Yes, you can use either camera. The rear camera usually gives the sharpest results."]
-    ]
+    ],
+    related: ["/guides/take-pictures-of-yourself/", "/guides/full-body-photo-of-yourself/", "/guides/maternity-photos-at-home/"]
   },
   {
     path: "/uses/group-photos/",
@@ -520,7 +521,8 @@ const ARTICLES = [
     faqs: [
       ["How do I take a group photo without someone holding the camera?", "Prop the phone up, open Phone Take A Photo, and have anyone in the group say “take a photo.” Repeat for as many shots as you want."],
       ["Will it hear me from far away?", "In typical conditions it works from across a room. For longer distances or noisy places, use a Bluetooth microphone or the clap shutter."]
-    ]
+    ],
+    related: ["/guides/diy-family-christmas-photo/", "/guides/diy-engagement-photos/", "/guides/self-timer-alternatives/"]
   },
   {
     path: "/uses/hands-free-video/",
@@ -557,7 +559,8 @@ const ARTICLES = [
     faqs: [
       ["Can I start a video recording with my voice?", "Yes. In Phone Take A Photo, say “start recording” to begin and “stop recording” to end."],
       ["Does it work with a Bluetooth microphone?", "Yes. You can choose the microphone the app listens to, including Bluetooth earbuds and headsets."]
-    ]
+    ],
+    related: ["/guides/film-yourself-cooking/", "/guides/take-photo-without-touching-phone/", "/uses/accessibility/"]
   },
   {
     path: "/uses/night-long-exposure/",
@@ -591,7 +594,8 @@ const ARTICLES = [
     faqs: [
       ["How do I avoid blur in night photos on my phone?", "Keep the phone perfectly still: use a tripod and trigger the shutter without touching the screen, for example with a voice command in Phone Take A Photo."],
       ["Do I need a Bluetooth shutter remote?", "Not with a voice shutter. Saying “take a photo” triggers the camera without any extra hardware."]
-    ]
+    ],
+    related: ["/guides/photograph-stars-with-your-phone/", "/guides/best-cheap-phone-tripods/", "/uses/voice-activated-camera/"]
   },
   {
     path: "/uses/accessibility/",

@@ -429,6 +429,221 @@ export function seoPages({ badges, EMAIL }) {
         ["What lens should I use for a phone headshot?", "The 2× or portrait lens if you have one. Avoid the ultra-wide lens up close, as it distorts faces."]
       ],
       related: ["/mac/", "/guides/take-pictures-of-yourself/", "/uses/hands-free-selfies/"]
+    },
+    {
+      section: "guides",
+      path: "/guides/photograph-stars-with-your-phone/",
+      crumb: "Photograph stars with your phone",
+      title: "How to Photograph Stars With Your Phone (No Remote Needed)",
+      description: "Take sharp night-sky and star photos with your phone: camera settings, the best night mode, and why a voice shutter beats tapping the screen for long exposures.",
+      eyebrow: "Guide",
+      h1: "How to photograph stars with your phone",
+      lede: "A star photo is a long exposure, and a long exposure is only as sharp as the phone is still. The number one thing that ruins them isn't your camera — it's your finger on the shutter button.",
+      content: `
+<h2>What you need</h2>
+<ul>
+  <li>A phone with a Night mode or manual/Pro camera mode</li>
+  <li>Somewhere away from city lights: the darker the sky, the more stars show up</li>
+  <li>A tripod, railing, rock or any flat, stable surface</li>
+  <li>A way to trigger the shutter without touching the phone</li>
+</ul>
+
+<h2>Step by step</h2>
+<ol>
+  <li><strong>Find real darkness.</strong> City and suburban light pollution hides all but the brightest stars. A light-pollution map app can point you to a dark-sky spot within driving distance.</li>
+  <li><strong>Mount the phone completely still.</strong> Even a tiny wobble during a multi-second exposure turns stars into short streaks and blurs everything else.</li>
+  <li><strong>Turn on Night mode, or go manual.</strong> If your phone has a Pro/manual mode, set ISO to 800–3200 and shutter speed to several seconds; otherwise let Night mode run its full exposure (don't cancel it early).</li>
+  <li><strong>Focus on infinity.</strong> Tap on the brightest star or a distant light to lock focus, or switch to manual focus and drag to the infinity end.</li>
+  <li><strong>Trigger without touching the screen.</strong> Pressing the on-screen button is exactly the kind of jolt a multi-second exposure can't hide. Say <strong>“take a photo”</strong> with Phone Take A Photo and step back from the tripod before it fires.</li>
+  <li><strong>Wait it out.</strong> Night mode exposures can run 10–30 seconds. Don't bump the tripod or walk past it while the counter is running.</li>
+</ol>
+
+<h2>Why a voice shutter matters more here than anywhere else</h2>
+<p>For a normal snapshot, a shaky tap barely shows. For a long exposure it's the difference between pinpoint stars and a smeared mess, because the phone has to stay dead still for the entire exposure, not just the instant you press the button. Triggering by voice (or a clap, in quiet settings where talking feels odd — swap to a timer-style self-timer if you'd rather not make noise at night) means nothing touches the phone at all.</p>
+
+<h2>Getting more out of the shot</h2>
+<ul>
+  <li>Include a horizon, a tree line or a person's silhouette — stars alone can look flat without something to give the photo scale.</li>
+  <li>Shoot several frames back to back; cloud cover and plane trails change shot to shot, and more frames means more to choose from.</li>
+  <li>The same no-touch approach works for light trails, waterfalls, fireworks and moon shots — see our <a href="/uses/night-long-exposure/">night &amp; long exposure guide</a> for settings on those.</li>
+</ul>
+
+<div class="callout"><p><strong>Battery tip:</strong> Night mode and long exposures drain battery fast in the cold. Start with a full charge and keep the phone warm (an inside jacket pocket between shots) if you're out for a while.</p></div>`,
+      faqs: [
+        ["Can I take pictures of stars with just my phone?", "Yes, with a recent phone's Night mode or a manual/Pro camera mode, a stable mount and a dark-sky location. You don't need a telescope or a DSLR."],
+        ["Why do my night-mode star photos come out blurry?", "Almost always camera shake during the exposure — either the phone wasn't fully stable, or tapping the shutter button jolted it. Mount it on something solid and trigger the shot without touching the screen."],
+        ["Do I need a special star-tracker mount?", "No, not for the kind of wide, few-second-to-30-second exposures a phone's Night mode produces. A tracker only matters for much longer deep-sky exposures that most phone cameras can't do anyway."]
+      ],
+      related: ["/uses/night-long-exposure/", "/guides/take-photo-without-touching-phone/", "/guides/best-cheap-phone-tripods/"]
+    },
+    {
+      section: "guides",
+      path: "/guides/diy-engagement-photos/",
+      crumb: "DIY engagement photos",
+      title: "How to Take Your Own Engagement Photos (DIY Guide)",
+      description: "Skip the photographer: how couples shoot their own engagement photos with a phone, a tripod, golden-hour light, posing prompts and a hands-free voice shutter.",
+      eyebrow: "Guide",
+      h1: "How to take your own engagement photos",
+      lede: "A professional engagement shoot is lovely, but it's also expensive and can feel stiff in front of a stranger. With good light, a steady phone and a few posing prompts, two people can get photos that feel like them.",
+      content: `
+<h2>Before you shoot</h2>
+<ul>
+  <li><strong>Pick golden hour.</strong> The hour after sunrise or before sunset gives soft, warm, directional light that flatters everyone. Overcast days work well too, any time.</li>
+  <li><strong>Scout a location with some depth</strong>: a path, a tree line, a staircase or a doorway gives the eye somewhere to travel instead of a flat wall.</li>
+  <li><strong>Coordinate outfits, don't match them.</strong> Two or three colors that sit well together read better in photos than an identical outfit.</li>
+  <li><strong>Bring a tripod</strong> or scout for a wall, ledge or fence post at roughly chest height.</li>
+</ul>
+
+<h2>Posing prompts that actually work</h2>
+<p>Posing two people who aren't models is easier with prompts and actions rather than frozen poses:</p>
+<ul>
+  <li><strong>Walk toward the camera</strong> holding hands, looking at each other, then look at the lens for the last few steps.</li>
+  <li><strong>Forehead-to-forehead</strong>, eyes closed, both smiling.</li>
+  <li><strong>One partner whispers something funny</strong>; catch the real laugh a beat later.</li>
+  <li><strong>Look away from each other, then turn back</strong> on a count — this produces natural, unposed-looking expressions.</li>
+  <li><strong>A slow spin or twirl</strong> if one partner is in a dress or coat that moves well.</li>
+</ul>
+
+<h2>Shooting it yourselves, hands-free</h2>
+<ol>
+  <li>Frame the shot with both of you in position (ask a friend to stand in, or use the self-timer once to check framing).</li>
+  <li>Prop the phone on a tripod or stable surface and step into place.</li>
+  <li>Run through a prompt, then say <strong>“take a photo”</strong> — with Phone Take A Photo, either person can say it, so you're not racing a countdown or reaching back into frame.</li>
+  <li>Repeat each prompt 5–10 times. The best engagement photos are rarely the first take.</li>
+</ol>
+
+<p>The same hands-free setup works well for <a href="/guides/diy-headshot-at-home/">individual headshots</a> if you want solo portraits from the same session, and for a <a href="/uses/group-photos/">group shot</a> if family is along for an engagement party.</p>`,
+      faqs: [
+        ["Can I take my own engagement photos without hiring a photographer?", "Yes. A tripod, golden-hour light and a hands-free shutter (voice or clap) cover most of what a photographer's setup does; the rest is posing prompts and taking plenty of frames."],
+        ["What's the best time of day for DIY engagement photos?", "Golden hour — the hour after sunrise or before sunset — for warm, soft, flattering light. Overcast days are a reliable backup at any hour."],
+        ["How do we trigger the camera if we're both in the shot?", "Prop the phone on a tripod, frame the shot, and use a hands-free trigger. With Phone Take A Photo, either partner can say “take a photo” from wherever they're standing."]
+      ],
+      related: ["/uses/group-photos/", "/guides/take-pictures-of-yourself/", "/guides/diy-family-christmas-photo/"]
+    },
+    {
+      section: "guides",
+      path: "/guides/maternity-photos-at-home/",
+      crumb: "Maternity photos at home",
+      title: "Maternity Photos at Home: A DIY Pregnancy Photoshoot",
+      description: "Shoot your own maternity photos at home: the best week, flattering poses, window light and outfits, plus a hands-free voice shutter so your hands stay free.",
+      eyebrow: "Guide",
+      h1: "How to take maternity photos at home",
+      lede: "You don't need a studio for maternity photos that feel soft and intimate — a window, a plain wall and a handful of poses do most of the work. Here's how to shoot them yourself.",
+      content: `
+<h2>Timing</h2>
+<p>Most people shoot between <strong>30 and 36 weeks</strong>, when the bump is well-defined but moving around is still comfortable. There's no wrong week — earlier or later both work, especially for a more casual, candid set.</p>
+
+<h2>Set the scene</h2>
+<ul>
+  <li><strong>Window light</strong>: face a large window, or shoot side-on to it for more shadow and shape. Turn off mixed-color room lights.</li>
+  <li><strong>A plain background</strong> (a wall, a doorway, outdoors against greenery) keeps the focus on you.</li>
+  <li><strong>Outfits</strong>: a fitted dress or top that follows the belly's shape photographs better than loose fabric; a cropped top with hands framing the bump is a classic, simple option.</li>
+</ul>
+
+<h2>Poses that work</h2>
+<ul>
+  <li><strong>Hands forming a heart or cradle</strong> over the belly, looking down or at the camera.</li>
+  <li><strong>Profile silhouette</strong>, standing side-on to the window or a sunset.</li>
+  <li><strong>Partner's hands on the belly</strong> from behind or kneeling in front — a good excuse to include them in a few frames.</li>
+  <li><strong>Sitting on a stool or the floor</strong>, leaning slightly back, for a relaxed, less “standing-at-attention” look.</li>
+  <li><strong>A short walking shot</strong> toward the camera, one hand resting on the belly.</li>
+</ul>
+
+<h2>Shoot it yourself, hands-free</h2>
+<p>Reaching for a phone or remote mid-pose tenses your shoulders and shows in the photo — and it's awkward at any stage of pregnancy. Prop the phone on a tripod or stable surface at roughly chest height, get into position, and say <strong>“take a photo.”</strong> Run through each pose several times; the most natural-looking frame is rarely the first one.</p>
+<p>For solo portrait technique and camera-height tips that apply just as well here, see <a href="/guides/take-pictures-of-yourself/">how to take pictures of yourself</a>.</p>`,
+      faqs: [
+        ["What week should I take maternity photos?", "Most people shoot between 30 and 36 weeks, when the bump is defined but it's still comfortable to move and pose. Any week can work depending on the look you want."],
+        ["Do I need a professional photographer for maternity photos?", "No. Good window light, a plain background and a hands-free shutter cover most of what a studio session does, and you can shoot as many frames as you like without a clock running."],
+        ["How do I include my partner in a hands-free maternity photo?", "Prop the phone on a tripod, get into position together, and say “take a photo” — either of you can trigger it without breaking the pose to reach for the phone."]
+      ],
+      related: ["/uses/hands-free-selfies/", "/guides/take-pictures-of-yourself/", "/guides/diy-headshot-at-home/"]
+    },
+    {
+      section: "guides",
+      path: "/guides/film-yourself-cooking/",
+      crumb: "Film yourself cooking",
+      title: "How to Film Yourself Cooking (Hands-Free Recipe Videos)",
+      description: "Film recipe and cooking videos hands-free: camera angles for stovetop shots, lighting, and starting and stopping recording by voice with messy hands.",
+      eyebrow: "Guide",
+      h1: "How to film yourself cooking, hands-free",
+      lede: "Your hands are busy with flour, knives and hot pans at exactly the moment you need to hit record. A voice-controlled camera means you never touch the phone with messy hands.",
+      content: `
+<h2>Camera angles</h2>
+<ul>
+  <li><strong>Overhead (top-down)</strong>: best for chopping, mixing and plating. Mount the phone on an overhead tripod arm, or a shelf directly above the counter.</li>
+  <li><strong>45° angled</strong>: a tripod just off to the side of the stove or counter shows both the food and your hands at work — the most common “cooking video” framing.</li>
+  <li><strong>Straight-on at counter height</strong>: good for talking to camera between steps.</li>
+</ul>
+
+<h2>Lighting</h2>
+<p>Face the stove or counter toward a window if you can; it's the single biggest upgrade over overhead kitchen lighting, which tends to cast unflattering shadows under cabinets. If you only have the ceiling light, a cheap clip-on lamp angled at the counter helps a lot.</p>
+
+<h2>Filming it hands-free</h2>
+<ol>
+  <li>Prop the phone on a tripod, a clamp mount, or braced against something stable at the angle you want.</li>
+  <li>Prep each step so you're not holding raw meat or wet dough when it's time to start filming.</li>
+  <li>Say <strong>“start recording”</strong> before you begin a step, and <strong>“stop recording”</strong> the moment it's done — with Phone Take A Photo, nothing needs to touch the phone, which also means you're not getting flour or raw-meat residue on your screen.</li>
+  <li>Film each step as its own short clip rather than one long continuous take. It's easier to say the key line again if you fumble it, and it's far easier to edit afterward — you just drop the clips in order.</li>
+</ol>
+
+<h2>A few extra tips</h2>
+<ul>
+  <li>Keep a kitchen towel nearby to wipe hands before touching anything that isn't food, including any phone adjustments between setups.</li>
+  <li>Narrate as you go, even if you plan to add text captions later — it's easier to write captions from something you actually said.</li>
+  <li>The same “start/stop recording” approach works for any hands-busy video: woodworking, pottery, gardening, car repair or a workout. See more ideas in <a href="/uses/hands-free-video/">hands-free video</a>.</li>
+</ul>`,
+      faqs: [
+        ["How do content creators film cooking videos by themselves?", "With a phone propped on a tripod or clamp mount at counter height or overhead, shot in short clips per step, and started and stopped hands-free so messy hands never touch the phone."],
+        ["How do I start and stop recording without touching my phone?", "Use a voice-controlled camera app. With Phone Take A Photo, saying “start recording” and “stop recording” controls video without tapping the screen."],
+        ["What's the best camera angle for a cooking video?", "A 45° angle beside the stove or counter shows both the food and your hands, and is the most common framing for recipe videos. Overhead is better for close-up chopping and plating shots."]
+      ],
+      related: ["/uses/hands-free-video/", "/guides/take-photo-without-touching-phone/", "/guides/best-cheap-phone-tripods/"]
+    },
+    {
+      section: "guides",
+      path: "/guides/best-cheap-phone-tripods/",
+      crumb: "Best cheap phone tripods",
+      title: "Best Cheap Phone Tripods for Photos & Video",
+      description: "The cheapest, sturdiest ways to prop up your phone for hands-free photos and video: flexible tripods, tabletop stands, travel tripods and free household stand-ins.",
+      eyebrow: "Guide",
+      h1: "The best cheap phone tripods (and free alternatives)",
+      lede: "A voice shutter only helps once the phone is standing still. You don't need to spend much — here's what actually holds a phone steady, from budget tripods to things you already own.",
+      content: `
+<h2>What to look for</h2>
+<ul>
+  <li><strong>A universal phone clamp</strong>, not a fixed phone-shaped slot — phones and cases vary in width, and a spring clamp fits almost all of them.</li>
+  <li><strong>Enough weight or leg spread</strong> to resist a gentle bump; the lightest, cheapest tripods tip over outdoors in any wind.</li>
+  <li><strong>A head that tilts and rotates</strong>, so you can go from portrait to landscape and adjust the angle without re-clamping the phone.</li>
+</ul>
+
+<h2>Four budget categories</h2>
+<h3>1. Flexible-leg tripod with phone clamp</h3>
+<p>Bendable legs wrap around railings, branches, bike handlebars or bag straps as well as standing on flat ground. The most versatile cheap option for travel, hiking and anywhere a flat surface isn't guaranteed.</p>
+<h3>2. Tabletop / mini tripod</h3>
+<p>Short, stable, and cheap — ideal for desk headshots, video calls and cooking videos where the phone sits on a counter or shelf at a fixed height.</p>
+<h3>3. Full-height travel tripod with a phone adapter</h3>
+<p>A standard photography tripod (often sold with a phone clamp adapter, or buy the adapter separately) extends to chest or eye height, which is what you want for full-body selfies, group photos and engagement-style shots.</p>
+<h3>4. Selfie-stick tripod combo</h3>
+<p>Doubles as an extendable handheld stick and a small tripod with folding legs. A reasonable one-item answer if you want both a higher handheld angle sometimes and a stand-alone tripod other times.</p>
+
+<h2>Free household stand-ins</h2>
+<p>Before buying anything, these work for a surprising number of shots:</p>
+<ul>
+  <li>A stack of books or a shelf at the height you need</li>
+  <li>Wedging the phone into a half-open door, car window or fence gap</li>
+  <li>Leaning it against a water bottle, mug or rolled towel for a slight upward tilt</li>
+  <li>A window ledge or stair step for overhead cooking or craft shots</li>
+</ul>
+
+<h2>Pair it with a hands-free shutter</h2>
+<p>However it's propped, you still have to reach the phone to trigger the shot — unless you don't. With Phone Take A Photo, say <strong>“take a photo”</strong> or clap once the phone is stable, so the one part of the setup that actually matters (keeping it still) never gets undone by your own hand reaching for the button. See <a href="/guides/take-photo-without-touching-phone/">every way to take a photo without touching your phone</a> for other trigger options.</p>`,
+      faqs: [
+        ["Do I need an expensive tripod to take hands-free photos?", "No. A $10–20 flexible-leg or tabletop tripod with a universal phone clamp is enough for most selfies, group shots and video; spend more only if you need extra height or outdoor wind resistance."],
+        ["What can I use instead of a tripod?", "A stack of books, a window ledge, a door gap, or anything flat and stable at the right height. Any of these works fine paired with a hands-free shutter."],
+        ["What tripod height is best for full-body photos?", "Roughly waist height, angled very slightly upward, which tends to lengthen the legs in the frame. A full-height travel tripod with a phone adapter gets you there."]
+      ],
+      related: ["/guides/take-photo-without-touching-phone/", "/guides/take-pictures-of-yourself/", "/uses/night-long-exposure/"]
     }
   ];
 }
