@@ -46,7 +46,7 @@ const header = `
   <div class="wrap">
     <a class="brand" href="/"><img src="/assets/icon.svg" alt="" width="34" height="34">Phone Take A Photo</a>
     <nav class="nav" aria-label="Main">
-      <a class="hide-sm" href="/#try">Try it</a>
+      <a class="hide-sm" href="/webcam/">Online camera</a>
       <a class="hide-sm" href="/uses/">Use cases</a>
       <a class="hide-sm" href="/guides/">Guides</a>
       <a class="btn btn-primary btn-sm" data-store="auto" data-placement="nav" href="/get/">Get the app</a>
@@ -101,6 +101,7 @@ const footer = `
       <div>
         <h4>App</h4>
         <ul>
+          <li><a href="/webcam/">Online webcam camera</a></li>
           <li><a href="/iphone/">iPhone &amp; iPad</a></li>
           <li><a href="/android/">Android</a></li>
           <li><a href="/mac/">Mac</a></li>
@@ -213,9 +214,10 @@ const HOME_FAQ = [
   ["Is the browser demo the same as the app?", `The demo on this page uses your browser's built-in speech engine to show the idea. The app uses its own offline speech model, takes full-resolution photos and video, and adds night mode, long exposures and manual controls. Need help? Email <a href="mailto:${EMAIL}">${EMAIL}</a>.`]
 ];
 
-const demoMarkup = `
+// One widget per page: demo.js binds to #demo. defaultMode preselects voice | clap | timer.
+const demoWidget = ({ defaultMode = "", heading = "Try it right here", intro = "Turn on your camera, step back, and say:" } = {}) => `
 <div>
-  <div class="phone" id="demo">
+  <div class="phone" id="demo"${defaultMode ? ` data-default-mode="${defaultMode}"` : ""}>
     <div class="screen">
       <div class="notch"></div>
       <video playsinline muted autoplay class="mirror" aria-label="Live camera preview"></video>
@@ -225,6 +227,7 @@ const demoMarkup = `
         <div class="mode-toggle" role="group" aria-label="Trigger">
           <button type="button" data-mode="voice" aria-pressed="true">Voice</button>
           <button type="button" data-mode="clap" aria-pressed="false">Clap</button>
+          <button type="button" data-mode="timer" aria-pressed="false" title="Tap again to change the delay">Timer 5s</button>
         </div>
       </div>
       <div class="hud">
@@ -238,8 +241,8 @@ const demoMarkup = `
       </div>
       <div class="demo-start">
         <div>
-          <h3>Try it right here</h3>
-          <p>Turn on your camera, step back, and say:</p>
+          <h3>${heading}</h3>
+          <p>${intro}</p>
           <div class="say">“Take a photo”</div>
           <button class="btn btn-primary demo-go" type="button">Start the camera</button>
           <p class="demo-msg" style="margin-top:14px"></p>
@@ -247,7 +250,7 @@ const demoMarkup = `
       </div>
     </div>
   </div>
-  <p class="demo-note">Photos stay on your device — nothing is uploaded. No speech support in your browser? Switch to <b>Clap</b>.</p>
+  <p class="demo-note">Photos stay on your device — nothing is uploaded. No speech support in your browser? Switch to <b>Clap</b> or <b>Timer</b>.</p>
 </div>
 <div class="modal" id="demo-modal" role="dialog" aria-modal="true" aria-label="Your photo">
   <div class="sheet">
@@ -263,6 +266,7 @@ const demoMarkup = `
     </div>
   </div>
 </div>`;
+const demoMarkup = demoWidget();
 
 const home = layout({
   path: "/",
@@ -294,6 +298,7 @@ const home = layout({
       </div>
       <p class="proof" style="margin-top:10px">Available for <a href="/iphone/">iPhone</a>, <a href="/iphone/">iPad</a>, <a href="/mac/">Mac</a> &amp; <a href="/android/">Android</a></p>
       <p style="margin-top:22px"><a href="#try" class="btn btn-ghost">Try it in your browser ↓</a></p>
+      <p class="proof" style="margin-top:10px">On a laptop? Use the <a href="/webcam/">free online webcam camera</a> with voice, clap and self-timer.</p>
     </div>
     <div id="try">${demoMarkup}</div>
   </div>
@@ -726,7 +731,7 @@ for (const a of ARTICLES) {
     ${badges(a.path.split("/").filter(Boolean).pop() + "-top")}
   </div>
   ${a.content}
-  <div class="inline-cta"><div><strong>See it work in 10 seconds.</strong><br><span class="muted">Try the voice shutter in your browser.</span></div><a class="btn btn-primary" href="/#try">Try the demo</a></div>
+  <div class="inline-cta"><div><strong>See it work in 10 seconds.</strong><br><span class="muted">Try the voice shutter in your browser. Free, no download.</span></div><a class="btn btn-primary" href="/webcam/">Try the online camera</a></div>
   ${a.faqs ? `<h2>FAQ</h2>${faqHtml(a.faqs)}` : ""}
   <h2>Keep reading</h2>
 </div>
@@ -737,6 +742,116 @@ ${ctaBand(a.path.split("/").filter(Boolean).pop() + "-bottom")}`
   });
   write(a.path, html);
 }
+
+// ---------- Online webcam camera (/webcam/) ----------
+// Targets "take a picture with webcam online", "online camera with timer", "webcam photo booth online",
+// "voice activated webcam". The browser tool is the page; the app is the upsell.
+const WEBCAM_FAQ = [
+  ["How do I take a picture with my webcam online?", "Click <b>Start the camera</b> above and allow camera access. Then say “take a photo,” clap, or tap the shutter. The photo opens instantly and you can download it as a JPG. Nothing to install and no account."],
+  ["Can I take a webcam photo with my voice?", "Yes. In <b>Voice</b> mode, say “take a photo,” “take a picture,” “take a selfie” or just “cheese” and the camera fires. Say it again for the next shot. It uses your browser's built-in speech recognition, so it works best in Chrome, Edge and Safari."],
+  ["Does the online camera have a timer?", "Yes. Switch to <b>Timer</b> and tap the shutter for a countdown. Tap the Timer button again to cycle between 3, 5 and 10 seconds. Tap the shutter during the countdown to cancel."],
+  ["Is it free? Do I need to sign up or download anything?", "It's free, with no sign-up and no download. It runs entirely in your web browser on Windows, Mac, Chromebook, Linux, iPhone and Android."],
+  ["Are my photos uploaded anywhere?", "No. Photos are captured and stored in your browser tab and never leave your device. Clap and Timer modes are completely local. In Voice mode the browser's own speech engine does the listening; Chrome may send audio to Google's speech service to recognise it, and Safari uses Apple's speech recognition. Want guaranteed offline voice? The free app runs its own on-device speech model."],
+  ["Which browsers support the voice shutter?", "Voice mode works in Google Chrome, Microsoft Edge and Safari (Mac, iPhone and iPad). Firefox and some privacy browsers like Brave don't provide working speech recognition, so the page switches to Clap mode automatically; Clap and Timer work in every modern browser."],
+  ["Can I use it as an online photo booth?", "Yes. Prop up your laptop, step back and keep saying “cheese.” Every shot is kept in the tab (tap the thumbnail to open the latest), so you can grab a series of poses without touching the keyboard. Download your favourites before closing the tab."],
+  ["Why does my photo have a watermark?", "Photos from the free browser camera carry a small phonetakeaphoto.com stamp. The app takes full-resolution photos and video, and an optional in-app purchase removes the watermark."],
+  ["The camera won't start. What should I check?", "Make sure no other app (Zoom, Teams, FaceTime) is using the webcam, and that the site is allowed to use the camera and microphone in your browser's site settings. Then reload and click <b>Start the camera</b> again."]
+];
+
+write("/webcam/", layout({
+  path: "/webcam/",
+  title: "Take a Picture with Your Webcam Online: Voice, Clap & Timer",
+  description: "Free online webcam camera. Say “take a photo,” clap, or set a 3/5/10-second timer to snap a picture hands-free. No download or sign-up; photos stay on your device.",
+  schema: [
+    breadcrumbs([["Home", "/"], ["Online webcam camera", "/webcam/"]]),
+    { "@type": "WebApplication", name: "Phone Take A Photo — Online Webcam Camera", url: abs("/webcam/"),
+      applicationCategory: "MultimediaApplication", operatingSystem: "Any (web browser)",
+      browserRequirements: "Requires JavaScript, camera access (getUserMedia). Voice mode requires the Web Speech API (Chrome, Edge, Safari).",
+      description: "Take photos with your webcam or phone camera in the browser, hands-free: by voice command, by clapping, or with a self-timer.",
+      featureList: ["Voice-activated shutter (“take a photo”)", "Clap / sound-activated shutter", "3, 5 and 10 second self-timer", "Front/back camera switch", "Download as JPG", "No upload, no sign-up"],
+      image: abs("/assets/og.png"), isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      publisher: { "@type": "Organization", name: "Phone Take A Photo", url: SITE + "/" } },
+    { "@type": "HowTo", name: "How to take a picture with your webcam online",
+      step: [
+        { "@type": "HowToStep", name: "Start the camera", text: "Click Start the camera and allow camera (and microphone) access." },
+        { "@type": "HowToStep", name: "Pick a trigger", text: "Choose Voice, Clap or Timer at the top of the preview." },
+        { "@type": "HowToStep", name: "Take the photo", text: "Say “take a photo,” clap, or tap the shutter to start the countdown." },
+        { "@type": "HowToStep", name: "Save it", text: "Download the photo as a JPG or share it straight from the preview." }
+      ] },
+    faqSchema(WEBCAM_FAQ)
+  ],
+  body: `
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Online webcam camera</nav>
+      <span class="eyebrow">Free online camera · no download</span>
+      <h1>Take a picture with your webcam. <span class="quote">Hands-free.</span></h1>
+      <p class="lede">A free camera that runs in your browser. Say <b>“take a photo,”</b> clap, or set a self-timer, and your webcam snaps the picture. Works on laptops, Macs, Chromebooks and phones. Photos never leave your device.</p>
+      <div class="proof">
+        <span>🗣 Voice shutter</span>
+        <span>• 👏 Clap shutter</span>
+        <span>• ⏱ 3/5/10s timer</span>
+        <span>• 🔒 Nothing uploaded</span>
+      </div>
+    </div>
+    <div id="try">${demoWidget({ heading: "Your webcam, hands-free", intro: "Start the camera, lean back, and say:" })}</div>
+  </div>
+</section>
+
+<div class="narrow article">
+  <h2>How to take a picture with your webcam online</h2>
+  <ol>
+    <li><strong>Start the camera.</strong> Click <b>Start the camera</b> and allow access when your browser asks. Voice and Clap modes also need the microphone.</li>
+    <li><strong>Pick how to trigger it.</strong> <b>Voice</b> listens for “take a photo.” <b>Clap</b> fires on a clap or finger snap. <b>Timer</b> counts down after you tap the shutter (tap the Timer button again for 3, 5 or 10 seconds).</li>
+    <li><strong>Get in position.</strong> Sit back, stand up, hold something up to the camera. Your hands are free.</li>
+    <li><strong>Shoot and save.</strong> The photo pops up right away. Download it as a JPG, share it, or keep shooting; the thumbnail next to the shutter reopens your latest shot.</li>
+  </ol>
+
+  <h2>Voice, clap or timer: which should you use?</h2>
+  <div class="table-scroll"><table>
+    <thead><tr><th></th><th>Voice</th><th>Clap</th><th>Timer</th></tr></thead>
+    <tbody>
+      <tr><td>Fires</td><td>When you say “take a photo” or “cheese”</td><td>On a clap or snap</td><td>3, 5 or 10 s after you tap</td></tr>
+      <tr><td>Best for</td><td>Posing at a distance, repeat shots</td><td>Quiet rooms, kids, when talking feels odd</td><td>Group shots, any browser</td></tr>
+      <tr><td>Needs a microphone</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Browsers</td><td>Chrome, Edge, Safari</td><td>All modern browsers</td><td>All modern browsers</td></tr>
+    </tbody>
+  </table></div>
+  <p>The difference from a normal self-timer is control. A countdown fires whether you're ready or not; a voice shutter waits until <em>you</em> are. Read more about <a href="/uses/voice-activated-camera/">how a voice-activated camera compares</a> with timers and remotes.</p>
+
+  <h2>What people use the online camera for</h2>
+  <ul>
+    <li><strong>Profile pictures and quick headshots</strong>: sit at a natural distance and try a few expressions without reaching for the trackpad. See our <a href="/guides/diy-headshot-at-home/">at-home headshot guide</a>.</li>
+    <li><strong>An online photo booth</strong>: prop the laptop up, step back with friends and keep saying “cheese.”</li>
+    <li><strong>Showing something to the camera</strong>: a drawing, a product, a document or a pet, held up with both hands.</li>
+    <li><strong>Full-body and outfit shots</strong> from across the room. Tips in <a href="/guides/full-body-photo-of-yourself/">how to take a full-body photo of yourself</a>.</li>
+    <li><strong>Accessibility</strong>: take a picture without using a mouse, keyboard or touchscreen. More on <a href="/uses/accessibility/">hands-free photography for limited mobility</a>.</li>
+  </ul>
+
+  <h2>Private by design</h2>
+  <p>The camera runs entirely inside this browser tab. There's no account and no server receiving your photos. Each shot is made on your device and only saved when you click Download. Close the tab and they're gone. Clap and Timer modes never send anything anywhere. Voice mode relies on your browser's speech recognition, which Chrome may process on Google's servers.</p>
+
+  <h2>Want the full-quality version?</h2>
+  <p>This page is the browser preview of <a href="/">Phone Take A Photo</a>, a free voice-activated camera app for <a href="/iphone/">iPhone and iPad</a>, <a href="/mac/">Mac</a> and <a href="/android/">Android</a>. The app recognises speech completely offline, shoots full-resolution photos and video (“start recording,” “stop recording”), and adds night mode, long exposures, manual controls and Bluetooth microphone support.</p>
+  ${badges("webcam-body")}
+
+  <h2>FAQ</h2>
+  ${faqHtml(WEBCAM_FAQ)}
+
+  <h2>More hands-free guides</h2>
+</div>
+<div class="wrap" style="margin-top:20px">
+  <div class="grid grid-3">
+    <a class="card" href="/guides/take-photo-with-voice/"><h3>Take a photo with your voice</h3><p>Every way to shoot by voice on iPhone and Android.</p><span class="more">Read →</span></a>
+    <a class="card" href="/guides/clap-to-take-photo/"><h3>Clap to take a photo</h3><p>How a sound-activated shutter works and when to use it.</p><span class="more">Read →</span></a>
+    <a class="card" href="/guides/self-timer-alternatives/"><h3>Self-timer alternatives</h3><p>Better than racing a 10-second countdown.</p><span class="more">Read →</span></a>
+  </div>
+</div>
+${ctaBand("webcam-bottom", "Like it? Get the app.", "Same idea, full resolution, fully offline. Free for iPhone, iPad, Mac, Vision Pro and Android.")}`,
+  scripts: `<script src="/assets/demo.js" defer></script>`
+}));
 
 // ---------- Use case hub ----------
 write("/uses/", layout({
@@ -873,15 +988,15 @@ write("/404.html", layout({
 <section class="get"><div class="narrow">
   <h1>We couldn't find that shot.</h1>
   <p class="lede muted">The page you're looking for isn't here. Maybe say “take a photo” instead?</p>
-  <p><a class="btn btn-primary" href="/#try">Try the demo</a> <a class="btn btn-ghost" href="/">Home</a></p>
+  <p><a class="btn btn-primary" href="/webcam/">Try the online camera</a> <a class="btn btn-ghost" href="/">Home</a></p>
 </div></section>`
 }));
 
 // ---------- Sitemap ----------
-const urls = ["/", "/uses/", "/guides/", ...ARTICLES.map((a) => a.path), "/get/", "/press/"];
+const urls = ["/", "/webcam/", "/uses/", "/guides/", ...ARTICLES.map((a) => a.path), "/get/", "/press/"];
 writeFileSync(join(ROOT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${UPDATED}</lastmod><priority>${u === "/" ? "1.0" : "0.7"}</priority></url>`).join("\n")}
+${urls.map((u) => `  <url><loc>${abs(u)}</loc><lastmod>${UPDATED}</lastmod><priority>${u === "/" ? "1.0" : u === "/webcam/" ? "0.9" : "0.7"}</priority></url>`).join("\n")}
 </urlset>
 `);
 

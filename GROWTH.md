@@ -73,6 +73,7 @@ Target keywords → page:
 
 | Keyword cluster | Page |
 |---|---|
+| take a picture with webcam online, online camera with timer, webcam photo booth online free, voice activated webcam (browser tool) | `/webcam/` |
 | voice activated camera app, camera that takes pictures when you talk | `/uses/voice-activated-camera/` |
 | how to take a picture with your voice iphone / android, take photo by voice | `/guides/take-photo-with-voice/` |
 | hands free selfie, take selfie without holding phone, full body selfie | `/uses/hands-free-selfies/` |
