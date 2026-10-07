@@ -1,5 +1,5 @@
 /* Phone Take A Photo — in-browser demo.
- * Say "take a photo" (or clap) and the camera fires. Everything runs locally in the page;
+ * Say "take a photo" (or clap, or use the self-timer) and the camera fires. Everything runs locally in the page;
  * photos are never uploaded anywhere. */
 (function () {
   "use strict";
@@ -17,8 +17,15 @@
   var TRIGGER = /\b(take|snap|grab|shoot)\s+(a\s+|the\s+|my\s+|another\s+)?(photo|picture|pic|pick|selfie|shot|foto)\b|\bcheese\b/i;
   var track = (window.PTAP && window.PTAP.track) || function () {};
 
-  var state = { running: false, mode: SR ? "voice" : "clap", facing: "user", stream: null, audioStream: null,
-    rec: null, audioCtx: null, analyser: null, raf: 0, lastShot: 0, firedFor: -1, shots: [], modalShown: false };
+  var TIMER_STEPS = [3, 5, 10];
+  var timerBtn = root.querySelector('[data-mode="timer"]');
+
+  // Pages can preselect a trigger with data-default-mode="timer|clap|voice" or ?mode=…
+  var wanted = (location.search.match(/[?&]mode=(voice|clap|timer)\b/) || [])[1] || root.getAttribute("data-default-mode");
+  var initial = wanted === "timer" && timerBtn ? "timer" : wanted === "clap" ? "clap" : SR ? "voice" : "clap";
+  var state = { running: false, mode: initial, facing: "user", stream: null, audioStream: null,
+    rec: null, audioCtx: null, analyser: null, raf: 0, lastShot: 0, firedFor: -1, shots: [], modalShown: false,
+    timerSecs: 5, countdown: 0 };
 
   if (!SR) {
     var vb = root.querySelector('[data-mode="voice"]');
@@ -31,9 +38,16 @@
     bubbleText.textContent = text;
     bubble.classList.toggle("hit", !!hit);
   }
+  function idleHint() {
+    if (state.mode === "clap") say("Clap mode", "Clap again for another", false);
+    else if (state.mode === "timer") say("Self-timer", "Tap the shutter · " + state.timerSecs + "s", false);
+    else if (state.mode === "tap") say("Tap", "Tap the shutter", false);
+    else say("Say", "“Take a photo”", false);
+  }
   function setStatus(text, live) { statusText.textContent = text; statusPill.classList.toggle("live", !!live); }
   function setModeButtons() {
     modeBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === state.mode)); });
+    if (timerBtn) timerBtn.textContent = "Timer " + state.timerSecs + "s";
   }
 
   function ensureAudioCtx() {
@@ -155,13 +169,31 @@
     if (state.audioStream) { state.audioStream.getTracks().forEach(function (t) { t.stop(); }); state.audioStream = null; }
   }
 
+  // ---------- Self-timer ----------
+  function cancelCountdown() {
+    if (state.countdown) { clearInterval(state.countdown); state.countdown = 0; }
+  }
+  function startCountdown() {
+    if (state.countdown || !state.running) return;
+    var left = state.timerSecs;
+    say("Self-timer", left + "…", false);
+    track("demo_timer", { secs: state.timerSecs });
+    state.countdown = setInterval(function () {
+      left -= 1;
+      if (left > 0) { say("Self-timer", left + "…", false); return; }
+      cancelCountdown();
+      capture("timer");
+    }, 1000);
+  }
+
   function startListening() {
-    stopVoice(); stopClap();
+    stopVoice(); stopClap(); cancelCountdown();
     if (state.mode === "voice") startVoice();
     else if (state.mode === "clap") startClap().catch(function () {
       say("Mic blocked", "Allow the microphone to use Clap mode", false); setStatus("Mic off", false);
     });
-    else { setStatus("Tap mode", false); say("Tap", "Tap the shutter", false); }
+    else if (state.mode === "timer") { setStatus("Self-timer", false); idleHint(); }
+    else { setStatus("Tap mode", false); idleHint(); }
   }
 
   // ---------- Capture ----------
@@ -196,7 +228,7 @@
     g.fillStyle = grad; g.fillRect(0, ch - bar * 2, cw, bar * 2);
     g.fillStyle = "#fff"; g.textBaseline = "middle";
     g.font = "700 " + fs + "px system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-    var label = trigger === "clap" ? "👏 Taken with a clap" : trigger === "voice" ? "🗣 “Take a photo”" : "📸 Hands-free camera";
+    var label = trigger === "clap" ? "👏 Taken with a clap" : trigger === "voice" ? "🗣 “Take a photo”" : trigger === "timer" ? "⏱ Self-timer" : "📸 Hands-free camera";
     g.textAlign = "left"; g.fillText(label, Math.round(bar * 0.5), ch - bar * 0.65);
     g.textAlign = "right"; g.fillStyle = "#ffc93c"; g.fillText("phonetakeaphoto.com", cw - Math.round(bar * 0.5), ch - bar * 0.65);
 
@@ -204,7 +236,7 @@
     shutterSound();
     if (navigator.vibrate) navigator.vibrate(30);
     say(trigger === "voice" ? "Heard you!" : trigger === "clap" ? "Clap detected!" : "Snap!", "📸 Photo taken", true);
-    setTimeout(function () { if (state.running) say(state.mode === "clap" ? "Clap mode" : "Say", state.mode === "clap" ? "Clap again for another" : "“Take a photo”", false); }, 1800);
+    setTimeout(function () { if (state.running && !state.countdown) idleHint(); }, 1800);
 
     c.toBlob(function (blob) {
       if (!blob) return;
@@ -256,7 +288,7 @@
       startLayer.hidden = true;
       track("demo_start", { mode: state.mode });
     }).catch(function (err) {
-      state.running = false; stopVoice(); stopClap(); setStatus("Mic off", false);
+      state.running = false; stopVoice(); stopClap(); cancelCountdown(); setStatus("Mic off", false);
       startBtn.disabled = false; startBtn.textContent = "Try again";
       startMsg.textContent = err && err.name === "NotAllowedError"
         ? "Camera permission was blocked. Allow it in your browser's site settings, then try again."
@@ -264,7 +296,10 @@
     });
   });
 
-  shutter.addEventListener("click", function () { capture("tap"); });
+  shutter.addEventListener("click", function () {
+    if (state.mode === "timer") { if (state.countdown) { cancelCountdown(); idleHint(); } else startCountdown(); }
+    else capture("tap");
+  });
   thumb.addEventListener("click", function () { if (state.shots.length) openModal(state.shots.length - 1); });
   flipBtn.addEventListener("click", function () {
     state.facing = state.facing === "user" ? "environment" : "user";
@@ -274,14 +309,21 @@
     b.addEventListener("click", function () {
       if (b.disabled) return;
       ensureAudioCtx();
-      state.mode = b.getAttribute("data-mode");
+      var m = b.getAttribute("data-mode");
+      // Tapping the active timer button cycles 3s → 5s → 10s.
+      if (m === "timer" && state.mode === "timer") {
+        state.timerSecs = TIMER_STEPS[(TIMER_STEPS.indexOf(state.timerSecs) + 1) % TIMER_STEPS.length];
+        cancelCountdown(); setModeButtons(); if (state.running) idleHint();
+        return;
+      }
+      state.mode = m;
       setModeButtons();
       if (state.running) startListening();
     });
   });
   document.addEventListener("visibilitychange", function () {
     if (!state.running) return;
-    if (document.hidden) { stopVoice(); stopClap(); setStatus("Paused", false); }
+    if (document.hidden) { stopVoice(); stopClap(); cancelCountdown(); setStatus("Paused", false); }
     else startListening();
   });
 })();

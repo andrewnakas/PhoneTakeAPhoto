@@ -115,6 +115,7 @@ export function seoPages({ badges, EMAIL }) {
     <tr><td>Works offline</td><td>Yes</td><td>Yes</td></tr>
   </tbody>
 </table></div>
+<p>Don't want to install anything yet? Our free <a href="/webcam/">online webcam camera</a> works in Safari or Chrome on your Mac right now: say “take a photo,” clap, or use a 3/5/10-second self-timer.</p>
 <p>Looking for a better headshot? See our guide to <a href="/guides/diy-headshot-at-home/">taking a professional headshot at home</a>.</p>`,
       faqs: [
         ["How do I take a picture on my Mac without clicking?", "Install Phone Take A Photo on an Apple silicon Mac (macOS 13+), allow camera and microphone access, and say “take a photo.”"],
@@ -251,6 +252,7 @@ export function seoPages({ badges, EMAIL }) {
 <h3>Voice shutter (our pick)</h3>
 <p><strong>Pros:</strong> nothing to carry or charge; fires exactly when you're ready; unlimited retakes; voice-controlled video too. <strong>Cons:</strong> very loud places need a clap trigger or a Bluetooth mic instead.</p>
 <p><a href="/">Phone Take A Photo</a> is a free voice shutter for iPhone, iPad, Mac and Android. It recognises speech offline, includes a clap trigger, and lets you pick a Bluetooth microphone when the phone is far away.</p>
+<p>Want to feel the difference yourself? Our free <a href="/webcam/?mode=timer">online camera</a> has both a self-timer and a voice shutter. Try a 5-second countdown, then switch to Voice and compare.</p>
 
 <h2>Which should you use?</h2>
 <div class="table-scroll"><table>
@@ -279,7 +281,7 @@ export function seoPages({ badges, EMAIL }) {
       lede: "Sometimes talking to your phone feels awkward: a quiet gallery, a sleeping baby, a crowd. A sound-activated shutter fires on a clap instead.",
       content: `
 <h2>How a clap shutter works</h2>
-<p>The app listens to the microphone's volume. A clap is a short, sharp spike, much louder than the background for a split second. When the app hears that spike, it fires the shutter. <a href="/">Phone Take A Photo</a> includes this “sound-reactive shutter” alongside voice commands. You can even <a href="/#try">try a clap shutter in your browser</a>.</p>
+<p>The app listens to the microphone's volume. A clap is a short, sharp spike, much louder than the background for a split second. When the app hears that spike, it fires the shutter. <a href="/">Phone Take A Photo</a> includes this “sound-reactive shutter” alongside voice commands. You can even <a href="/webcam/?mode=clap">try a clap shutter in your browser</a>.</p>
 
 <h2>When to clap instead of talk</h2>
 <ul>
